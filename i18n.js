@@ -88,7 +88,7 @@ const translations = {
 
         // Installation
         install: {
-            title: "💾 Cài Đặt",
+            title: "Cài Đặt",
             intro: "Cài đặt GDIPlus plugin chỉ trong vài bước đơn giản:",
             step1: {
                 title: "Download Plugin",
@@ -108,7 +108,7 @@ const translations = {
 
         // Quick Start
         quickstart: {
-            title: "⚡ Quick Start",
+            title: "Quick Start",
             intro: "Bắt đầu với ví dụ đơn giản:",
             example_title: "Ví Dụ Vẽ Hình Chữ Nhật Đơn Giản"
         },
@@ -177,6 +177,59 @@ const translations = {
             resources: "Tài Nguyên",
             documentation: "Tài Liệu",
             support: "Hỗ Trợ"
+        },
+
+        // Builder.js translations
+        functions: {
+            parameters: "Tham số:",
+            returns: "Trả về:",
+            defaults: "Mặc định:",
+            example: "Ví dụ:",
+            when_to_use: "Khi Nào Dùng",
+            advantage: "Ưu Điểm",
+            installation_guide: "Hướng dẫn cài đặt",
+            installation_intro: "Cài đặt GDIPlus plugin chỉ trong vài bước đơn giản:",
+            installation_steps: "Các bước cài đặt:",
+            step1_title: "Bước 1 - Download Plugin:",
+            step1_desc: "Copy file",
+            step1_desc2: "vào thư mục AmiBroker (thường là",
+            step2_title: "Bước 2 - Khởi động lại:",
+            step2_desc: "Khởi động lại AmiBroker để plugin được nạp",
+            step3_title: "Bước 3 - Verify:",
+            step3_desc: "Kiểm tra plugin đã được nạp trong",
+            system_requirements: "Yêu cầu hệ thống:",
+            simple_example: "Ví dụ đơn giản",
+            quickstart_desc: "Bắt đầu với ví dụ vẽ hình chữ nhật và hình tròn:",
+            basic_example: "Ví dụ cơ bản"
+        },
+
+        // Category titles
+        categories: {
+            state_management: "Quản Lý Trạng Thái",
+            colors: "Cài Đặt Màu Sắc",
+            gradients: "Gradient Brushes",
+            fonts: "Cài Đặt Font",
+            shapes: "Các Hàm Vẽ Hình",
+            polygons: "Đa Giác (Polygons)",
+            text: "Vẽ Text",
+            lines: "Smooth Lines",
+            charts: "Biểu Đồ Chuyên Nghiệp",
+            advanced: "Chức Năng Nâng Cao"
+        },
+
+        // Flip card feature
+        card: {
+            view_image: "Hình minh họa",
+            back: "Quay lại",
+            image_title: "Hình minh họa",
+            fullscreen: "Xem toàn màn hình",
+            no_image: "Chưa có hình minh họa"
+        },
+
+        // Action buttons
+        actions: {
+            buy_plugin: "Mua Plugin",
+            contact: "Liên hệ"
         }
     },
 
@@ -265,7 +318,7 @@ const translations = {
 
         // Installation
         install: {
-            title: "💾 Installation",
+            title: "Installation",
             intro: "Install GDIPlus plugin in just a few simple steps:",
             step1: {
                 title: "Download Plugin",
@@ -285,7 +338,7 @@ const translations = {
 
         // Quick Start
         quickstart: {
-            title: "⚡ Quick Start",
+            title: "Quick Start",
             intro: "Start with a simple example:",
             example_title: "Simple Rectangle Example"
         },
@@ -354,6 +407,59 @@ const translations = {
             resources: "Resources",
             documentation: "Documentation",
             support: "Support"
+        },
+
+        // Builder.js translations
+        functions: {
+            parameters: "Parameters:",
+            returns: "Returns:",
+            defaults: "Defaults:",
+            example: "Example:",
+            when_to_use: "When to Use",
+            advantage: "Advantage",
+            installation_guide: "Installation Guide",
+            installation_intro: "Install GDIPlus plugin in just a few simple steps:",
+            installation_steps: "Installation Steps:",
+            step1_title: "Step 1 - Download Plugin:",
+            step1_desc: "Copy",
+            step1_desc2: "to AmiBroker folder (usually",
+            step2_title: "Step 2 - Restart:",
+            step2_desc: "Restart AmiBroker to load the plugin",
+            step3_title: "Step 3 - Verify:",
+            step3_desc: "Check plugin is loaded in",
+            system_requirements: "System Requirements:",
+            simple_example: "Simple Example",
+            quickstart_desc: "Start with a simple rectangle and circle example:",
+            basic_example: "Basic Example"
+        },
+
+        // Category titles
+        categories: {
+            state_management: "State Management",
+            colors: "Color Settings",
+            gradients: "Gradient Brushes",
+            fonts: "Font Settings",
+            shapes: "Drawing Shapes",
+            polygons: "Polygons",
+            text: "Text Drawing",
+            lines: "Smooth Lines",
+            charts: "Professional Charts",
+            advanced: "Advanced Features"
+        },
+
+        // Flip card feature
+        card: {
+            view_image: "View Image",
+            back: "Back",
+            image_title: "Example Image",
+            fullscreen: "View Fullscreen",
+            no_image: "No image available"
+        },
+
+        // Action buttons
+        actions: {
+            buy_plugin: "Buy Plugin",
+            contact: "Contact"
         }
     }
 };
@@ -483,6 +589,9 @@ function switchLanguage(lang) {
     if (langText) {
         langText.textContent = lang === 'vi' ? 'EN' : 'VI';
     }
+
+    // Dispatch custom event to notify other scripts
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
 }
 
 // Initialize on load
@@ -505,9 +614,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Helper function to get current language (vi or en)
+function getCurrentLang() {
+    return currentLang;
+}
+
+// Helper function to check if Vietnamese
+function isVi() {
+    return currentLang === 'vi';
+}
+
 // Export for use in other scripts
 window.i18n = {
     t,
     switchLanguage,
-    getCurrentLang: () => currentLang
+    getCurrentLang,
+    isVi
 };

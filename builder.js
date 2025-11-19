@@ -7,56 +7,16 @@
   'use strict';
 
   const categoryInfo = {
-    stateManagement: {
-      titleVi: 'Quản Lý Trạng Thái',
-      titleEn: 'State Management',
-      icon: 'settings'
-    },
-    colors: {
-      titleVi: 'Cài Đặt Màu Sắc',
-      titleEn: 'Color Settings',
-      icon: 'palette'
-    },
-    gradients: {
-      titleVi: 'Gradient Brushes',
-      titleEn: 'Gradient Brushes',
-      icon: 'droplet'
-    },
-    fonts: {
-      titleVi: 'Cài Đặt Font',
-      titleEn: 'Font Settings',
-      icon: 'type'
-    },
-    shapes: {
-      titleVi: 'Các Hàm Vẽ Hình',
-      titleEn: 'Drawing Shapes',
-      icon: 'square'
-    },
-    polygons: {
-      titleVi: 'Đa Giác (Polygons)',
-      titleEn: 'Polygons',
-      icon: 'hexagon'
-    },
-    text: {
-      titleVi: 'Vẽ Text',
-      titleEn: 'Text Drawing',
-      icon: 'type'
-    },
-    lines: {
-      titleVi: 'Smooth Lines',
-      titleEn: 'Smooth Lines',
-      icon: 'activity'
-    },
-    charts: {
-      titleVi: 'Biểu Đồ Chuyên Nghiệp',
-      titleEn: 'Professional Charts',
-      icon: 'pie-chart'
-    },
-    advanced: {
-      titleVi: 'Chức Năng Nâng Cao',
-      titleEn: 'Advanced Features',
-      icon: 'layers'
-    }
+    stateManagement: { key: 'state_management', icon: 'settings' },
+    colors: { key: 'colors', icon: 'palette' },
+    gradients: { key: 'gradients', icon: 'droplet' },
+    fonts: { key: 'fonts', icon: 'type' },
+    shapes: { key: 'shapes', icon: 'square' },
+    polygons: { key: 'polygons', icon: 'hexagon' },
+    text: { key: 'text', icon: 'type' },
+    lines: { key: 'lines', icon: 'activity' },
+    charts: { key: 'charts', icon: 'pie-chart' },
+    advanced: { key: 'advanced', icon: 'layers' }
   };
 
   function getLucideIcon(iconName) {
@@ -75,28 +35,37 @@
   }
 
   function buildFunctionSection(func, categoryKey) {
-    const currentLang = localStorage.getItem('language') || 'vi';
-    const isVi = currentLang === 'vi';
+    const isVi = window.i18n && window.i18n.isVi ? window.i18n.isVi() : (localStorage.getItem('language') || 'vi') === 'vi';
+    const t = window.i18n && window.i18n.t ? window.i18n.t : (key) => key;
 
     const newBadge = func.isNew ? '<span class="new-badge">NEW</span>' : '';
+    const flipIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>';
 
     let html = `
-    <div class="function-card" id="${func.name}">
-      <div class="function-header">
-        <h3>${func.name}${newBadge}</h3>
-        <code class="function-signature">${func.signature}</code>
-      </div>
+    <div class="function-card-container" id="${func.name}">
+      <div class="function-card-inner">
+        <!-- FRONT SIDE -->
+        <div class="function-card function-card-front">
+          <button class="flip-btn" onclick="toggleFlip(this)" aria-label="View image">
+            ${flipIcon}
+            <span data-i18n="card.view_image">${isVi ? 'Hình minh họa' : 'View Image'}</span>
+          </button>
 
-      <div class="function-body">
-        <p class="function-description" data-i18n-content="${func.name}-desc">
-          ${isVi ? func.descVi : func.descEn}
-        </p>`;
+          <div class="function-header">
+            <h3>${func.name}${newBadge}</h3>
+            <code class="function-signature">${func.signature}</code>
+          </div>
+
+          <div class="function-body">
+            <p class="function-description" data-i18n-content="${func.name}-desc">
+              ${isVi ? func.descVi : func.descEn}
+            </p>`;
 
     // Parameters section
     if (func.params && func.params.length > 0) {
       html += `
         <div class="params-section">
-          <h4 data-i18n="functions.parameters">Tham số:</h4>
+          <h4 data-i18n="functions.parameters">${t('functions.parameters')}</h4>
           <ul class="params-list">`;
 
       func.params.forEach(param => {
@@ -115,7 +84,7 @@
     if (func.returns) {
       html += `
         <div class="returns-section">
-          <h4 data-i18n="functions.returns">Trả về:</h4>
+          <h4 data-i18n="functions.returns">${t('functions.returns')}</h4>
           <p>${func.returns}</p>
         </div>`;
     }
@@ -124,7 +93,7 @@
     if (func.defaultState) {
       html += `
         <div class="default-state-section">
-          <h4 data-i18n="functions.defaults">Mặc định:</h4>
+          <h4 data-i18n="functions.defaults">${t('functions.defaults')}</h4>
           <ul>
             <li><strong>Brush:</strong> ${func.defaultState.brush}</li>
             <li><strong>Pen:</strong> ${func.defaultState.pen}</li>
@@ -136,7 +105,7 @@
     // Example section
     html += `
         <div class="example-section">
-          <h4 data-i18n="functions.example">Ví dụ:</h4>
+          <h4 data-i18n="functions.example">${t('functions.example')}</h4>
           <div class="code-block-wrapper">
             <button class="copy-btn" aria-label="Copy code">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -159,6 +128,27 @@
     }
 
     html += `
+          </div>
+        </div>
+
+        <!-- BACK SIDE -->
+        <div class="function-card-back">
+          <button class="flip-btn" onclick="toggleFlip(this)" aria-label="Back to function">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <span data-i18n="card.back">${isVi ? 'Quay lại' : 'Back'}</span>
+          </button>
+
+          <div class="image-preview-container">
+            <h3 data-i18n="card.image_title">${isVi ? 'Hình minh họa' : 'Example Image'}: ${func.name}</h3>
+            <div class="image-preview" onclick="openFullscreen('${func.name}')">
+              <img src="images/examples/${func.name}.png" alt="${func.name} example" onerror="this.parentElement.parentElement.innerHTML='<div class=\\'image-not-available\\'><svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'2\\'><rect x=\\'3\\' y=\\'3\\' width=\\'18\\' height=\\'18\\' rx=\\'2\\'/><circle cx=\\'9\\' cy=\\'9\\' r=\\'2\\'/><path d=\\'m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21\\'/></svg><p data-i18n=\\'card.no_image\\'>${isVi ? 'Chưa có hình minh họa' : 'No image available'}</p></div>';" />
+            </div>
+            <button class="fullscreen-btn" onclick="openFullscreen('${func.name}')" data-i18n="card.fullscreen">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              ${isVi ? 'Xem toàn màn hình' : 'View Fullscreen'}
+            </button>
+          </div>
+        </div>
       </div>
     </div>`;
 
@@ -167,17 +157,16 @@
 
   function buildCategorySection(categoryKey, functions) {
     const info = categoryInfo[categoryKey];
-    const currentLang = localStorage.getItem('language') || 'vi';
-    const isVi = currentLang === 'vi';
+    const t = window.i18n && window.i18n.t ? window.i18n.t : (key) => key;
 
-    const title = isVi ? info.titleVi : info.titleEn;
+    const title = t(`categories.${info.key}`);
     const icon = getLucideIcon(info.icon);
 
     let html = `
     <section id="${categoryKey}" class="content-section">
       <div class="section-header">
         <div class="section-icon">${icon}</div>
-        <h2 class="section-title" data-i18n-content="category-${categoryKey}">${title}</h2>
+        <h2 class="section-title" data-i18n="categories.${info.key}">${title}</h2>
       </div>
 
       <div class="functions-grid">`;
@@ -194,14 +183,13 @@
   }
 
   function buildSidebarNav() {
-    const currentLang = localStorage.getItem('language') || 'vi';
-    const isVi = currentLang === 'vi';
+    const t = window.i18n && window.i18n.t ? window.i18n.t : (key) => key;
 
     let html = '';
 
     Object.keys(functionsData).forEach(categoryKey => {
       const info = categoryInfo[categoryKey];
-      const title = isVi ? info.titleVi : info.titleEn;
+      const title = t(`categories.${info.key}`);
       const icon = getLucideIcon(info.icon);
       const functions = functionsData[categoryKey];
 
@@ -209,7 +197,7 @@
         <div class="nav-group">
           <div class="nav-group-header" data-category="${categoryKey}">
             <div class="nav-group-icon">${icon}</div>
-            <span class="nav-group-title">${title}</span>
+            <span class="nav-group-title" data-i18n="categories.${info.key}">${title}</span>
             <svg class="nav-group-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
@@ -231,49 +219,48 @@
   }
 
   function buildInstallationSection() {
-    const currentLang = localStorage.getItem('language') || 'vi';
-    const isVi = currentLang === 'vi';
+    const t = window.i18n && window.i18n.t ? window.i18n.t : (key) => key;
     const downloadIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
 
     return `
     <section id="installation" class="content-section">
       <div class="section-header">
         <div class="section-icon">${downloadIcon}</div>
-        <h2 class="section-title">${isVi ? 'Cài Đặt' : 'Installation'}</h2>
+        <h2 class="section-title" data-i18n="install.title">${t('install.title')}</h2>
       </div>
 
       <div class="functions-grid">
         <div class="function-card">
           <div class="function-header">
-            <h3>${isVi ? 'Hướng dẫn cài đặt' : 'Installation Guide'}</h3>
+            <h3 data-i18n="functions.installation_guide">${t('functions.installation_guide')}</h3>
           </div>
 
           <div class="function-body">
-            <p class="function-description">
-              ${isVi ? 'Cài đặt GDIPlus plugin chỉ trong vài bước đơn giản:' : 'Install GDIPlus plugin in just a few simple steps:'}
+            <p class="function-description" data-i18n="functions.installation_intro">
+              ${t('functions.installation_intro')}
             </p>
 
             <div class="params-section">
-              <h4>${isVi ? 'Các bước cài đặt:' : 'Installation Steps:'}</h4>
+              <h4 data-i18n="functions.installation_steps">${t('functions.installation_steps')}</h4>
               <ul class="params-list">
                 <li>
-                  <strong>${isVi ? 'Bước 1 - Download Plugin:' : 'Step 1 - Download Plugin:'}</strong><br>
-                  ${isVi ? 'Copy file' : 'Copy'} <code>GDIPlus.dll</code> ${isVi ? 'vào thư mục AmiBroker (thường là' : 'to AmiBroker folder (usually'} <code>C:\\Program Files\\AmiBroker\\</code>)
+                  <strong data-i18n="functions.step1_title">${t('functions.step1_title')}</strong><br>
+                  <span data-i18n="functions.step1_desc">${t('functions.step1_desc')}</span> <code>GDIPlus.dll</code> <span data-i18n="functions.step1_desc2">${t('functions.step1_desc2')}</span> <code>C:\\Program Files\\AmiBroker\\</code>)
                 </li>
                 <li>
-                  <strong>${isVi ? 'Bước 2 - Khởi động lại:' : 'Step 2 - Restart:'}</strong><br>
-                  ${isVi ? 'Khởi động lại AmiBroker để plugin được nạp' : 'Restart AmiBroker to load the plugin'}
+                  <strong data-i18n="functions.step2_title">${t('functions.step2_title')}</strong><br>
+                  <span data-i18n="functions.step2_desc">${t('functions.step2_desc')}</span>
                 </li>
                 <li>
-                  <strong>${isVi ? 'Bước 3 - Verify:' : 'Step 3 - Verify:'}</strong><br>
-                  ${isVi ? 'Kiểm tra plugin đã được nạp trong' : 'Check plugin is loaded in'} <strong>Tools → Preferences → AFL</strong>
+                  <strong data-i18n="functions.step3_title">${t('functions.step3_title')}</strong><br>
+                  <span data-i18n="functions.step3_desc">${t('functions.step3_desc')}</span> <strong>Tools → Preferences → AFL</strong>
                 </li>
               </ul>
             </div>
 
             <div class="notes-section">
               <p class="note">
-                <strong>${isVi ? 'Yêu cầu hệ thống:' : 'System Requirements:'}</strong><br>
+                <strong data-i18n="functions.system_requirements">${t('functions.system_requirements')}</strong><br>
                 AmiBroker 6.x+ | Windows (32-bit) | GDI+ Runtime
               </p>
             </div>
@@ -284,8 +271,7 @@
   }
 
   function buildQuickStartSection() {
-    const currentLang = localStorage.getItem('language') || 'vi';
-    const isVi = currentLang === 'vi';
+    const t = window.i18n && window.i18n.t ? window.i18n.t : (key) => key;
     const lightningIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>';
 
     const exampleVi = `<span class="comment">// Reset về cài đặt mặc định</span>
@@ -324,22 +310,22 @@
     <section id="quickstart" class="content-section">
       <div class="section-header">
         <div class="section-icon">${lightningIcon}</div>
-        <h2 class="section-title">Quick Start</h2>
+        <h2 class="section-title" data-i18n="quickstart.title">${t('quickstart.title')}</h2>
       </div>
 
       <div class="functions-grid">
         <div class="function-card">
           <div class="function-header">
-            <h3>${isVi ? 'Ví dụ đơn giản' : 'Simple Example'}</h3>
+            <h3 data-i18n="functions.simple_example">${t('functions.simple_example')}</h3>
           </div>
 
           <div class="function-body">
-            <p class="function-description">
-              ${isVi ? 'Bắt đầu với ví dụ vẽ hình chữ nhật và hình tròn:' : 'Start with a simple rectangle and circle example:'}
+            <p class="function-description" data-i18n="functions.quickstart_desc">
+              ${t('functions.quickstart_desc')}
             </p>
 
             <div class="example-section">
-              <h4>${isVi ? 'Ví dụ cơ bản' : 'Basic Example'}</h4>
+              <h4 data-i18n="functions.basic_example">${t('functions.basic_example')}</h4>
               <div class="code-block-wrapper">
                 <button class="copy-btn" aria-label="Copy code">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -385,6 +371,11 @@
     if (sidebarNav) {
       sidebarNav.innerHTML = buildSidebarNav();
       setupNavGroupToggles();
+    }
+
+    // Re-initialize copy buttons after content rebuild
+    if (typeof initCopyButtons === 'function') {
+      initCopyButtons();
     }
   }
 

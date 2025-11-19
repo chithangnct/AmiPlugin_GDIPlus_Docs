@@ -129,13 +129,14 @@ searchInput.addEventListener('keydown', (e) => {
 // ============================================
 // Copy Code Button
 // ============================================
-const copyButtons = document.querySelectorAll('.copy-button');
+function initCopyButtons() {
+    const copyButtons = document.querySelectorAll('.copy-btn');
 
-copyButtons.forEach(button => {
-    button.addEventListener('click', async () => {
-        const targetId = button.getAttribute('data-copy-target');
-        const codeElement = document.getElementById(targetId) ||
-                           button.closest('.code-block-wrapper').querySelector('code');
+    copyButtons.forEach(button => {
+        button.addEventListener('click', async () => {
+            const targetId = button.getAttribute('data-copy-target');
+            const codeElement = document.getElementById(targetId) ||
+                               button.closest('.code-block-wrapper').querySelector('code');
 
         if (codeElement) {
             const code = codeElement.textContent;
@@ -170,7 +171,16 @@ copyButtons.forEach(button => {
             }
         }
     });
+    });
+}
+
+// Initialize copy buttons on page load
+document.addEventListener('DOMContentLoaded', () => {
+    initCopyButtons();
 });
+
+// Export for use in other scripts
+window.initCopyButtons = initCopyButtons;
 
 // ============================================
 // Tabs
@@ -438,5 +448,70 @@ const debouncedScrollHandler = debounce(() => {
 }, 100);
 
 window.addEventListener('scroll', debouncedScrollHandler);
+
+// ============================================
+// Flip Card Feature
+// ============================================
+
+function toggleFlip(button) {
+    const container = button.closest('.function-card-container');
+    container.classList.toggle('flipped');
+}
+
+function openFullscreen(funcName) {
+    // Create fullscreen modal if it doesn't exist
+    let modal = document.querySelector('.fullscreen-modal');
+
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.className = 'fullscreen-modal';
+        modal.innerHTML = `
+            <button class="fullscreen-close-btn" onclick="closeFullscreen()" aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <div class="fullscreen-modal-content">
+                <img id="fullscreen-image" src="" alt="" />
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        // Close on click outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeFullscreen();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeFullscreen();
+            }
+        });
+    }
+
+    // Set image source and show modal
+    const img = modal.querySelector('#fullscreen-image');
+    img.src = `images/examples/${funcName}.png`;
+    img.alt = `${funcName} example`;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeFullscreen() {
+    const modal = document.querySelector('.fullscreen-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Make functions globally available
+window.toggleFlip = toggleFlip;
+window.openFullscreen = openFullscreen;
+window.closeFullscreen = closeFullscreen;
 
 console.log('📚 GDIPlus Documentation loaded successfully!');

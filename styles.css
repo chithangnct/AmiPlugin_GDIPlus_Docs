@@ -19,8 +19,8 @@
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
 
-    --code-bg: #1e293b;
-    --code-text: #e2e8f0;
+    --code-bg: rgb(232, 236, 243);
+    --code-text: #1a202c;
 
     --success: #10b981;
     --warning: #f59e0b;
@@ -156,6 +156,83 @@ body::before {
 .header-controls {
     display: flex;
     gap: 8px;
+    align-items: center;
+}
+
+/* Page Action Buttons (Top Right of Main Content) */
+.page-action-buttons {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 12px;
+    z-index: 100;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    box-shadow: var(--shadow-md);
+}
+
+.action-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.buy-plugin-btn {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.buy-plugin-btn:hover {
+    background: var(--accent-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(91, 99, 211, 0.4);
+}
+
+.contact-btn {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.contact-btn:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-2px);
+}
+
+/* Mobile responsive for action buttons */
+@media (max-width: 768px) {
+    .page-action-buttons {
+        top: 10px;
+        right: 10px;
+        gap: 8px;
+    }
+
+    .action-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .action-btn span {
+        display: none;
+    }
+
+    .action-btn svg {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 .lang-toggle,
@@ -725,52 +802,69 @@ body::before {
     font-family: var(--font-mono);
     font-size: 14px;
     line-height: 1.8;
-    color: var(--code-text);
 }
 
 /* Enhanced Syntax Highlighting for AFL */
-code .comment {
-    color: #6A9955;
+/* Custom span classes used in content-data.js examples */
+.comment {
+    color: #6A9955 !important;
     font-style: italic;
 }
 
-code .function {
-    color: #4EC9B0;
-    font-weight: 600;
+.function {
+    color: #79C0FF !important;
 }
 
-code .keyword {
-    color: #C586C0;
-    font-weight: 600;
+.keyword {
+    color: #C586C0 !important;
 }
 
-code .number {
-    color: #B5CEA8;
+.number {
+    color: #B5CEA8 !important;
 }
 
-code .string {
-    color: #CE9178;
+.string {
+    color: #CE9178 !important;
 }
 
-code .operator {
-    color: #D4D4D4;
+.operator {
+    color: #D4D4D4 !important;
 }
 
-code .variable {
-    color: #9CDCFE;
+.variable {
+    color: #9CDCFE !important;
 }
 
-/* Dark theme adjustments */
-[data-theme="dark"] code .comment {
-    color: #6A9955;
+/* Also support Prism.js token classes */
+.token.comment {
+    color: #6A9955 !important;
+    font-style: italic;
 }
 
-[data-theme="dark"] code .function {
-    color: #4EC9B0;
+.token.function {
+    color: #79C0FF !important;
 }
 
-[data-theme="dark"] code .keyword {
-    color: #C586C0;
+.token.keyword {
+    color: #C586C0 !important;
+}
+
+.token.number {
+    color: #B5CEA8 !important;
+}
+
+.token.string {
+    color: #CE9178 !important;
+}
+
+.token.operator,
+.token.punctuation {
+    color: #D4D4D4 !important;
+}
+
+.token.variable,
+.token.constant {
+    color: #9CDCFE !important;
 }
 
 /* NEW badge styling */
@@ -788,7 +882,8 @@ code .variable {
     vertical-align: middle;
 }
 
-code {
+/* Inline code only (not code blocks) */
+:not(pre) > code {
     font-family: var(--font-mono);
     font-size: 0.9em;
     background: var(--bg-secondary);
@@ -1723,6 +1818,34 @@ code {
     color: rgba(255, 255, 255, 0.8);
 }
 
+/* Light mode - darker copy button for better contrast */
+:root .copy-btn {
+    background: rgba(26, 32, 44, 0.08);
+    border: 1px solid rgba(26, 32, 44, 0.15);
+}
+
+:root .copy-btn:hover {
+    background: rgba(26, 32, 44, 0.12);
+}
+
+:root .copy-btn svg {
+    color: rgba(26, 32, 44, 0.7);
+}
+
+/* Dark mode - keep original light colors */
+[data-theme="dark"] .copy-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .copy-btn svg {
+    color: rgba(255, 255, 255, 0.8);
+}
+
 .copy-btn:active {
     transform: scale(0.95);
 }
@@ -1802,5 +1925,246 @@ pre code[class*="language-"] {
 
     .content-wrapper {
         max-width: 100%;
+    }
+}
+
+/* ============================================
+   Flip Card Feature
+   ============================================ */
+
+/* Flip button in top right corner */
+.flip-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--accent-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.flip-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(91, 99, 211, 0.3);
+}
+
+.flip-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.flip-btn:hover svg {
+    transform: rotateY(180deg);
+}
+
+/* Card container for flip effect */
+.function-card-container {
+    perspective: 1000px;
+    position: relative;
+}
+
+.function-card-inner {
+    position: relative;
+    width: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.function-card-container.flipped .function-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front and back sides */
+.function-card-front,
+.function-card-back {
+    width: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.function-card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: rotateY(180deg);
+    background: rgba(248, 249, 250, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 32px;
+    min-height: 400px;
+}
+
+[data-theme="dark"] .function-card-back {
+    background: rgba(30, 41, 59, 0.6);
+}
+
+/* Image preview container */
+.image-preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.image-preview-container h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.image-preview {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.image-preview:hover {
+    transform: scale(1.02);
+}
+
+.image-preview img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image-not-available {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 16px;
+}
+
+.image-not-available svg {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    opacity: 0.3;
+}
+
+/* Fullscreen button */
+.fullscreen-btn {
+    background: var(--accent-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.fullscreen-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+.fullscreen-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Fullscreen Modal */
+.fullscreen-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.fullscreen-modal.active {
+    display: flex;
+}
+
+.fullscreen-modal-content {
+    position: relative;
+    max-width: 95vw;
+    max-height: 95vh;
+    animation: zoomIn 0.3s ease;
+}
+
+.fullscreen-modal-content img {
+    max-width: 100%;
+    max-height: 95vh;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.fullscreen-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10001;
+}
+
+.fullscreen-close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.fullscreen-close-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
     }
 }
