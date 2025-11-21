@@ -3,36 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GDIPlus Documentation - AmiBroker Graphics Plugin</title>
+    <title>GDIPlus Plugin - Professional Graphics for AmiBroker</title>
+    <meta name="description" content="GDIPlus Plugin - Thư viện vẽ đồ họa chuyên nghiệp cho AmiBroker với GDI+ technology, hỗ trợ transparency, gradient effects và nhiều tính năng mạnh mẽ.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="landing-styles.css">
 </head>
 <body>
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
                 <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 2L2 7l10 5 10-5-10-5z"/>
                     <path d="M2 17l10 5 10-5"/>
                     <path d="M2 12l10 5 10-5"/>
                 </svg>
-                <span class="logo-text">GDIPlus</span>
+                <span>GDIPlus</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="#features" data-i18n="nav.features">Tính năng</a>
+                <a href="#showcase" data-i18n="nav.showcase">Showcase</a>
+                <a href="#pricing" data-i18n="nav.pricing">Bảng giá</a>
+                <a href="docs.html" data-i18n="nav.docs">Tài liệu</a>
             </div>
-            <div class="header-controls">
-                <button class="lang-toggle" id="langToggle" aria-label="Toggle language" title="Switch Language">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M2 12h20"/>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+
+            <div class="nav-actions">
+                <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+                    <svg class="flag-icon vi-flag" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="30" height="20" fill="#DA251D"/>
+                        <polygon points="15,4 16.18,8.09 20.39,8.09 17.11,10.41 18.29,14.5 15,12.18 11.71,14.5 12.89,10.41 9.61,8.09 13.82,8.09" fill="#FFCD00"/>
                     </svg>
-                    <span class="lang-text">EN</span>
+                    <svg class="flag-icon us-flag" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <rect width="30" height="20" fill="#B22234"/>
+                        <path d="M0,2.31 h30 M0,4.62 h30 M0,6.92 h30 M0,9.23 h30 M0,11.54 h30 M0,13.85 h30 M0,16.15 h30 M0,18.46 h30" stroke="#fff" stroke-width="1.54"/>
+                        <rect width="12" height="9.23" fill="#3C3B6E"/>
+                    </svg>
                 </button>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle Theme">
-                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"/>
                         <line x1="12" y1="1" x2="12" y2="3"/>
                         <line x1="12" y1="21" x2="12" y2="23"/>
@@ -43,261 +55,518 @@
                         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
                     </svg>
-                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                     </svg>
                 </button>
+
+                <a href="#pricing" class="btn btn-primary" data-i18n="nav.buy">Mua ngay</a>
             </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
+    </nav>
 
-        <div class="search-box">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="M21 21l-4.35-4.35"/>
-            </svg>
-            <input type="text" id="searchInput" placeholder="Tìm kiếm..." data-i18n-placeholder="search" />
-        </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#features" data-i18n="nav.features">Tính năng</a>
+        <a href="#showcase" data-i18n="nav.showcase">Showcase</a>
+        <a href="#pricing" data-i18n="nav.pricing">Bảng giá</a>
+        <a href="index.html" data-i18n="nav.docs">Tài liệu</a>
+        <a href="#pricing" class="btn btn-primary" data-i18n="nav.buy">Mua ngay</a>
+    </div>
 
-        <nav class="sidebar-nav">
-            <div class="nav-section">
-                <div class="nav-section-title" data-i18n="nav.getting_started">Getting Started</div>
-                <a href="#introduction" class="nav-link active">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                    <span data-i18n="nav.introduction">Giới Thiệu</span>
-                </a>
-                <a href="#installation" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    <span data-i18n="nav.installation">Cài Đặt</span>
-                </a>
-                <a href="#quickstart" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                    <span data-i18n="nav.quickstart">Quick Start</span>
-                </a>
-            </div>
-
-            <div class="nav-section">
-                <div class="nav-section-title" data-i18n="nav.core_functions">Core Functions</div>
-                <a href="#state-management" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-                    <span data-i18n="nav.state_management">Quản Lý Trạng Thái</span>
-                </a>
-                <a href="#colors" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
-                    <span data-i18n="nav.colors">Màu Sắc</span>
-                </a>
-                <a href="#gradients" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8A6 6 0 1 0 8 16"/></svg>
-                    <span data-i18n="nav.gradients">Gradient Brushes</span>
-                </a>
-                <a href="#fonts" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-                    <span data-i18n="nav.fonts">Font Settings</span>
-                </a>
-            </div>
-
-            <div class="nav-section">
-                <div class="nav-section-title" data-i18n="nav.drawing_functions">Drawing Functions</div>
-                <a href="#rectangles" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
-                    <span data-i18n="nav.rectangles">Hình Chữ Nhật</span>
-                </a>
-                <a href="#circles" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
-                    <span data-i18n="nav.circles">Hình Tròn & Elip</span>
-                </a>
-                <a href="#lines" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    <span data-i18n="nav.lines">Đường Thẳng</span>
-                </a>
-                <a href="#polygons" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-                    <span data-i18n="nav.polygons">Đa Giác</span>
-                </a>
-                <a href="#text" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
-                    <span data-i18n="nav.text">Vẽ Text</span>
-                </a>
-                <a href="#curves" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-3.2 2.8-6 6-6 1.7 0 3.2.7 4.3 1.8C14.5 6.7 16 6 17.7 6 20.9 6 24 8.8 24 12"/></svg>
-                    <span data-i18n="nav.curves">Smooth Lines</span>
-                </a>
-            </div>
-
-            <div class="nav-section">
-                <div class="nav-section-title" data-i18n="nav.advanced_charts">Advanced Charts</div>
-                <a href="#pie-charts" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-                    <span data-i18n="nav.pie_charts">Pie & Donut</span>
-                </a>
-                <a href="#gauge-charts" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    <span data-i18n="nav.gauge_charts">Gauge Charts</span>
-                </a>
-                <a href="#radar-charts" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                    <span data-i18n="nav.radar_charts">Radar Charts</span>
-                </a>
-                <a href="#area-charts" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                    <span data-i18n="nav.area_charts">Area Charts</span>
-                </a>
-            </div>
-
-            <div class="nav-section">
-                <div class="nav-section-title" data-i18n="nav.examples_reference">Examples & Reference</div>
-                <a href="#examples" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                    <span data-i18n="nav.examples">Ví Dụ Tổng Hợp</span>
-                </a>
-                <a href="#color-constants" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
-                    <span data-i18n="nav.color_constants">Color Constants</span>
-                </a>
-                <a href="#troubleshooting" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6"/><path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24"/><path d="M1 12h6m6 0h6"/><path d="m4.93 19.07 4.24-4.24m5.66-5.66 4.24-4.24"/></svg>
-                    <span data-i18n="nav.troubleshooting">Khắc Phục Sự Cố</span>
-                </a>
-                <a href="#best-practices" class="nav-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <span data-i18n="nav.best_practices">Best Practices</span>
-                </a>
-            </div>
-        </nav>
-
-        <div class="sidebar-footer">
-            <div class="version-info">v2.0</div>
-            <div class="copyright">© 2025 GDIPlus</div>
-        </div>
-    </aside>
-
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Action Buttons (Top Right) -->
-        <div class="page-action-buttons">
-            <a href="#" class="action-btn buy-plugin-btn" data-i18n="actions.buy_plugin">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="21" r="1"/>
-                    <circle cx="20" cy="21" r="1"/>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                </svg>
-                <span>Mua Plugin</span>
-            </a>
-            <a href="#" class="action-btn contact-btn" data-i18n="actions.contact">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                </svg>
-                <span>Liên hệ</span>
-            </a>
-        </div>
-
-        <div class="content-wrapper">
-            <!-- Hero Section -->
-            <section id="introduction" class="hero-section">
-                <div class="badge" data-i18n="hero.badge">AmiBroker Graphics Plugin</div>
-                <h1 class="hero-title">GDIPlus Plugin</h1>
-                <p class="hero-subtitle" data-i18n="hero.subtitle">Thư viện vẽ đồ họa chuyên nghiệp với GDI+ technology, hỗ trợ transparency và gradient effects</p>
-
-                <div class="feature-cards">
-                    <div class="feature-card">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18m-4-4 4 4 4-4"/><path d="M8 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-4"/></svg>
-                        <h3 data-i18n="features.alpha.title">Alpha Transparency</h3>
-                        <p data-i18n="features.alpha.desc">Hỗ trợ độ trong suốt cho mọi hình vẽ</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge" data-i18n="hero.badge">AmiBroker Graphics Plugin</div>
+                <h1 class="hero-title">
+                    <span class="gradient-text">GDIPlus</span> Plugin
+                </h1>
+                <p class="hero-subtitle" data-i18n="hero.subtitle">
+                    Thư viện vẽ đồ họa chuyên nghiệp với GDI+ technology, hỗ trợ transparency và gradient effects cho AmiBroker
+                </p>
+                <div class="hero-buttons">
+                    <a href="docs.html" class="btn btn-primary btn-lg" data-i18n="hero.view_docs">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        </svg>
+                        Xem tài liệu
+                    </a>
+                    <a href="#pricing" class="btn btn-outline btn-lg" data-i18n="hero.buy_now">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"/>
+                            <circle cx="20" cy="21" r="1"/>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                        </svg>
+                        Mua Plugin
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label" data-i18n="hero.functions">Hàm vẽ</span>
                     </div>
-                    <div class="feature-card">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
-                        <h3 data-i18n="features.gradients.title">Advanced Gradients</h3>
-                        <p data-i18n="features.gradients.desc">Hỗ trợ đa màu cho gradient (Linear, Radial, Slice...)</p>
+                    <div class="stat">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label" data-i18n="hero.chart_types">Loại biểu đồ</span>
                     </div>
-                    <div class="feature-card">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-                        <h3 data-i18n="features.charts.title">Pro Charts</h3>
-                        <p data-i18n="features.charts.desc">Đa dạng biểu đồ chuyên nghiệp: Pie, Donut, Gauge, Radar ...</p>
-                    </div>
-                    <div class="feature-card">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-3.2 2.8-6 6-6 1.7 0 3.2.7 4.3 1.8C14.5 6.7 16 6 17.7 6 20.9 6 24 8.8 24 12"/><path d="M3 12c0 3.2 2.8 6 6 6 1.7 0 3.2-.7 4.3-1.8C14.5 17.3 16 18 17.7 18c3.2 0 6.3-2.8 6.3-6"/></svg>
-                        <h3 data-i18n="features.curves.title">Smooth Curves</h3>
-                        <p data-i18n="features.curves.desc">Vẽ đường cong mượt mà với Bezier và Spline interpolation</p>
-                    </div>
-                    <div class="feature-card">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-                        <h3 data-i18n="features.fonts.title">Custom Fonts</h3>
-                        <p data-i18n="features.fonts.desc">Render chữ sắc nét cùng với hiệu ứng chữ (gradient, glow...)</p>
-                    </div>
-                    <div class="feature-card">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></svg>
-                        <h3 data-i18n="features.svg.title">SVG Rendering</h3>
-                        <p data-i18n="features.svg.desc">Kết xuất đồ họa vector từ file SVG chất lượng cao</p>
-                    </div>
-                    <div class="feature-card">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                        <h3 data-i18n="features.responsive.title">Smart & Responsive</h3>
-                        <p data-i18n="features.responsive.desc">Co giãn thông minh với nhiều phân giải màn hình</p>
-                    </div>
-                    <div class="feature-card">
-                        <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                        <h3 data-i18n="features.urlimage.title">URL Images</h3>
-                        <p data-i18n="features.urlimage.desc">Hiển thị hình ảnh trực tiếp từ Internet</p>
+                    <div class="stat">
+                        <span class="stat-number">v2.0</span>
+                        <span class="stat-label" data-i18n="hero.version">Phiên bản</span>
                     </div>
                 </div>
-            </section>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-wrapper">
+                    <img src="images/examples/GDIpGaugeChart.png" alt="GDIPlus Chart Example" class="hero-image">
+                    <div class="floating-card card-1">
+                        <img src="images/examples/GDIpPieChart.png" alt="Pie Chart">
+                    </div>
+                    <div class="floating-card card-2">
+                        <img src="images/examples/GDIpRadarChart.png" alt="Radar Chart">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <!-- Dynamically Generated Function Sections -->
-            <div id="functions-content">
-                <!-- All function sections will be generated by builder.js -->
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="features.title">Tính năng nổi bật</h2>
+                <p class="section-subtitle" data-i18n="features.subtitle">Khám phá những khả năng mạnh mẽ của GDIPlus Plugin</p>
             </div>
 
-            <!-- Footer -->
-            <footer class="doc-footer">
-                <div class="footer-content">
-                    <div class="footer-section">
-                        <h4>GDIPlus Plugin</h4>
-                        <p data-i18n="footer.desc">Professional graphics library for AmiBroker</p>
-                        <div class="footer-version">Version 2.0 • November 2025</div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 3v18m-4-4 4 4 4-4"/>
+                            <path d="M8 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-4"/>
+                        </svg>
                     </div>
-                    <div class="footer-section">
-                        <h4 data-i18n="footer.resources">Resources</h4>
-                        <ul>
-                            <li><a href="#introduction" data-i18n="footer.documentation">Documentation</a></li>
-                            <li><a href="#examples" data-i18n="nav.examples">Examples</a></li>
-                            <li><a href="#troubleshooting" data-i18n="nav.troubleshooting">Troubleshooting</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-section">
-                        <h4 data-i18n="footer.support">Support</h4>
-                        <ul>
-                            <li><a href="#best-practices" data-i18n="nav.best_practices">Best Practices</a></li>
-                            <li><a href="#color-constants" data-i18n="nav.color_constants">Color Reference</a></li>
-                        </ul>
-                    </div>
+                    <h3 data-i18n="features.alpha.title">Alpha Transparency</h3>
+                    <p data-i18n="features.alpha.desc">Hỗ trợ độ trong suốt cho mọi hình vẽ, tạo hiệu ứng chồng lớp đẹp mắt</p>
                 </div>
-                <div class="footer-bottom">
-                    <p>© 2025 GDIPlus Plugin. Compatible with AmiBroker 6.x+ on Windows 32-bit</p>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="13.5" cy="6.5" r=".5"/>
+                            <circle cx="17.5" cy="10.5" r=".5"/>
+                            <circle cx="8.5" cy="7.5" r=".5"/>
+                            <circle cx="6.5" cy="12.5" r=".5"/>
+                            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="features.gradients.title">Advanced Gradients</h3>
+                    <p data-i18n="features.gradients.desc">Hỗ trợ đa màu cho gradient: Linear, Radial, Slice với nhiều điểm dừng màu</p>
                 </div>
-            </footer>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+                            <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="features.charts.title">Pro Charts</h3>
+                    <p data-i18n="features.charts.desc">Đa dạng biểu đồ chuyên nghiệp: Pie, Donut, Gauge, Radar, Area Charts</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12c0-3.2 2.8-6 6-6 1.7 0 3.2.7 4.3 1.8C14.5 6.7 16 6 17.7 6 20.9 6 24 8.8 24 12"/>
+                            <path d="M3 12c0 3.2 2.8 6 6 6 1.7 0 3.2-.7 4.3-1.8C14.5 17.3 16 18 17.7 18c3.2 0 6.3-2.8 6.3-6"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="features.curves.title">Smooth Curves</h3>
+                    <p data-i18n="features.curves.desc">Vẽ đường cong mượt mà với Bezier và Spline interpolation</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="4 7 4 4 20 4 20 7"/>
+                            <line x1="9" y1="20" x2="15" y2="20"/>
+                            <line x1="12" y1="4" x2="12" y2="20"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="features.fonts.title">Custom Fonts</h3>
+                    <p data-i18n="features.fonts.desc">Render chữ sắc nét với hiệu ứng gradient, glow và shadow</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <path d="m10 13-2 2 2 2"/>
+                            <path d="m14 17 2-2-2-2"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="features.svg.title">SVG Rendering</h3>
+                    <p data-i18n="features.svg.desc">Kết xuất đồ họa vector từ file SVG chất lượng cao</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="features.responsive.title">Smart & Responsive</h3>
+                    <p data-i18n="features.responsive.desc">Co giãn thông minh với nhiều phân giải màn hình</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="9" cy="9" r="2"/>
+                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="features.urlimage.title">URL Images</h3>
+                    <p data-i18n="features.urlimage.desc">Hiển thị hình ảnh trực tiếp từ Internet với caching thông minh</p>
+                </div>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <!-- i18n translations -->
-    <script src="i18n.js"></script>
+    <!-- Showcase Section -->
+    <section id="showcase" class="showcase-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="showcase.title">Showcase</h2>
+                <p class="section-subtitle" data-i18n="showcase.subtitle">Xem các ví dụ biểu đồ được tạo bởi GDIPlus</p>
+            </div>
 
-    <!-- Content Data (must load before builder) -->
-    <script src="content-data.js"></script>
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <img src="images/examples/GDIpPieChart.png" alt="Pie Chart">
+                    <div class="showcase-overlay">
+                        <h4>Pie Chart</h4>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <img src="images/examples/GDIpDonutChart.png" alt="Donut Chart">
+                    <div class="showcase-overlay">
+                        <h4>Donut Chart</h4>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <img src="images/examples/GDIpGaugeChart.png" alt="Gauge Chart">
+                    <div class="showcase-overlay">
+                        <h4>Gauge Chart</h4>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <img src="images/examples/GDIpRadarChart.png" alt="Radar Chart">
+                    <div class="showcase-overlay">
+                        <h4>Radar Chart</h4>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <img src="images/examples/GDIpAreaChart.png" alt="Area Chart">
+                    <div class="showcase-overlay">
+                        <h4>Area Chart</h4>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <img src="images/examples/GDIpProcessCircleChart.png" alt="Process Circle">
+                    <div class="showcase-overlay">
+                        <h4>Process Circle</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Builder Script -->
-    <script src="builder.js"></script>
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="pricing.title">Bảng giá</h2>
+                <p class="section-subtitle" data-i18n="pricing.subtitle">Chọn gói phù hợp với nhu cầu của bạn</p>
+            </div>
 
-    <!-- Syntax highlighting -->
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-clike.min.js"></script>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 data-i18n="pricing.basic.title">Basic</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">49</span>
+                        </div>
+                        <p data-i18n="pricing.basic.desc">Cho người dùng cá nhân</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li data-i18n="pricing.basic.f1">Tất cả hàm vẽ cơ bản</li>
+                        <li data-i18n="pricing.basic.f2">Hỗ trợ transparency</li>
+                        <li data-i18n="pricing.basic.f3">Linear Gradient</li>
+                        <li data-i18n="pricing.basic.f4">1 năm cập nhật</li>
+                        <li data-i18n="pricing.basic.f5">Hỗ trợ email</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline btn-block" data-i18n="pricing.buy">Mua ngay</a>
+                </div>
 
-    <!-- Interactive features -->
-    <script src="script.js"></script>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge" data-i18n="pricing.popular">Phổ biến</div>
+                    <div class="pricing-header">
+                        <h3 data-i18n="pricing.pro.title">Professional</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">99</span>
+                        </div>
+                        <p data-i18n="pricing.pro.desc">Cho trader chuyên nghiệp</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li data-i18n="pricing.pro.f1">Tất cả hàm vẽ</li>
+                        <li data-i18n="pricing.pro.f2">Advanced Charts</li>
+                        <li data-i18n="pricing.pro.f3">Multi-color Gradients</li>
+                        <li data-i18n="pricing.pro.f4">SVG Rendering</li>
+                        <li data-i18n="pricing.pro.f5">Lifetime updates</li>
+                        <li data-i18n="pricing.pro.f6">Priority support</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary btn-block" data-i18n="pricing.buy">Mua ngay</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 data-i18n="pricing.enterprise.title">Enterprise</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">199</span>
+                        </div>
+                        <p data-i18n="pricing.enterprise.desc">Cho doanh nghiệp</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li data-i18n="pricing.enterprise.f1">Tất cả tính năng Pro</li>
+                        <li data-i18n="pricing.enterprise.f2">Multi-license (5 máy)</li>
+                        <li data-i18n="pricing.enterprise.f3">Custom development</li>
+                        <li data-i18n="pricing.enterprise.f4">Direct support</li>
+                        <li data-i18n="pricing.enterprise.f5">Source code access</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline btn-block" data-i18n="pricing.contact">Liên hệ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="testimonials.title">Khách hàng nói gì</h2>
+                <p class="section-subtitle" data-i18n="testimonials.subtitle">Đánh giá từ những người đã sử dụng GDIPlus Plugin</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="testimonial-text" data-i18n="testimonials.t1.text">"GDIPlus đã thay đổi hoàn toàn cách tôi hiển thị dữ liệu trong AmiBroker. Biểu đồ Gauge và Radar giúp dashboard của tôi trông chuyên nghiệp hơn nhiều."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">NT</div>
+                        <div class="author-info">
+                            <strong data-i18n="testimonials.t1.name">Nguyễn Tuấn</strong>
+                            <span data-i18n="testimonials.t1.role">Trader chuyên nghiệp</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="testimonial-text" data-i18n="testimonials.t2.text">"Tính năng gradient và transparency tuyệt vời. Code rất dễ sử dụng, tài liệu đầy đủ. Highly recommended cho bất kỳ ai muốn nâng cấp đồ họa AmiBroker."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TH</div>
+                        <div class="author-info">
+                            <strong data-i18n="testimonials.t2.name">Trần Hùng</strong>
+                            <span data-i18n="testimonials.t2.role">Quant Developer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="testimonial-text" data-i18n="testimonials.t3.text">"Support rất nhanh và nhiệt tình. Plugin hoạt động ổn định, không gặp lỗi gì trong suốt 6 tháng sử dụng. Đáng đồng tiền bát gạo!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LM</div>
+                        <div class="author-info">
+                            <strong data-i18n="testimonials.t3.name">Lê Minh</strong>
+                            <span data-i18n="testimonials.t3.role">Fund Manager</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-i18n="faq.title">Câu hỏi thường gặp</h2>
+                <p class="section-subtitle" data-i18n="faq.subtitle">Giải đáp những thắc mắc phổ biến về GDIPlus Plugin</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-i18n="faq.q1">GDIPlus Plugin tương thích với phiên bản AmiBroker nào?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq.a1">GDIPlus Plugin tương thích với AmiBroker 6.x trở lên, chạy trên Windows 32-bit. Plugin sử dụng công nghệ GDI+ có sẵn trên tất cả phiên bản Windows từ XP đến Windows 11.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-i18n="faq.q2">Làm thế nào để cài đặt plugin?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq.a2">Chỉ cần copy file DLL vào thư mục Plugins của AmiBroker, sau đó khởi động lại AmiBroker. Plugin sẽ tự động được nhận diện và bạn có thể sử dụng ngay các hàm GDIp*.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-i18n="faq.q3">Plugin có ảnh hưởng đến hiệu suất AmiBroker không?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq.a3">GDIPlus được tối ưu hóa cao với caching thông minh. Plugin sử dụng hardware acceleration khi có thể và chỉ render lại khi cần thiết, đảm bảo hiệu suất mượt mà ngay cả với biểu đồ phức tạp.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-i18n="faq.q4">Tôi có được hỗ trợ sau khi mua không?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq.a4">Có, tất cả khách hàng đều được hỗ trợ qua email. Gói Professional và Enterprise có priority support với thời gian phản hồi nhanh hơn. Chúng tôi cũng cung cấp tài liệu đầy đủ và ví dụ code.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-i18n="faq.q5">Có thể dùng thử trước khi mua không?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq.a5">Hiện tại chúng tôi không có bản trial, nhưng bạn có thể xem tài liệu và tất cả ví dụ trước khi quyết định. Chúng tôi cũng có chính sách hoàn tiền trong 14 ngày nếu plugin không đáp ứng được nhu cầu.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span data-i18n="faq.q6">License hoạt động như thế nào?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p data-i18n="faq.a6">Gói Basic và Professional cho phép sử dụng trên 1 máy tính. Gói Enterprise cho phép 5 máy. License là vĩnh viễn, bạn có thể sử dụng phiên bản đã mua mãi mãi. Cập nhật tùy thuộc vào gói bạn chọn.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 data-i18n="cta.title">Sẵn sàng nâng cấp đồ họa AmiBroker?</h2>
+                <p data-i18n="cta.subtitle">Bắt đầu sử dụng GDIPlus Plugin ngay hôm nay và trải nghiệm sự khác biệt</p>
+                <div class="cta-buttons">
+                    <a href="docs.html" class="btn btn-white btn-lg" data-i18n="cta.docs">Xem tài liệu</a>
+                    <a href="#pricing" class="btn btn-outline-white btn-lg" data-i18n="cta.buy">Mua ngay</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                        <span>GDIPlus</span>
+                    </a>
+                    <p data-i18n="footer.desc">Professional graphics library for AmiBroker</p>
+                    <div class="footer-version">Version 2.0 - November 2025</div>
+                </div>
+
+                <div class="footer-links">
+                    <h4 data-i18n="footer.product">Sản phẩm</h4>
+                    <ul>
+                        <li><a href="#features" data-i18n="nav.features">Tính năng</a></li>
+                        <li><a href="#pricing" data-i18n="nav.pricing">Bảng giá</a></li>
+                        <li><a href="index.html" data-i18n="nav.docs">Tài liệu</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4 data-i18n="footer.support">Hỗ trợ</h4>
+                    <ul>
+                        <li><a href="docs.html#installation" data-i18n="footer.installation">Cài đặt</a></li>
+                        <li><a href="docs.html#troubleshooting" data-i18n="footer.troubleshooting">Khắc phục sự cố</a></li>
+                        <li><a href="docs.html#best-practices" data-i18n="footer.best_practices">Best Practices</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4 data-i18n="footer.contact">Liên hệ</h4>
+                    <ul>
+                        <li><a href="mailto:support@example.com">support@example.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 GDIPlus Plugin. Compatible with AmiBroker 6.x+ on Windows 32-bit</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="landing-script.js"></script>
 </body>
 </html>
