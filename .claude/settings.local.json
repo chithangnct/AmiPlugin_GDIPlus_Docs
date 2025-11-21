@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(nul)",
+      "Bash(start \"\" \"h:/AmibrokerDLL/GDIPlus/Docs_GDIPlus/image-generator.html\")",
+      "Bash(start \"\" \"h:/AmibrokerDLL/GDIPlus/Docs_GDIPlus/index.html\")",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(python -m http.server:*)",
+      "Bash(start:*)",
+      "Bash(node:*)",
+      "Bash(del landing.html landing-styles.css landing-script.js landing-script-simple.js test-toggle.js nul 2)",
+      "Bash(Remove-Item -Path \"h:\\AmibrokerDLL\\GDIPlus\\Docs_GDIPlus\\landing.html\", \"h:\\AmibrokerDLL\\GDIPlus\\Docs_GDIPlus\\landing-styles.css\", \"h:\\AmibrokerDLL\\GDIPlus\\Docs_GDIPlus\\landing-script.js\", \"h:\\AmibrokerDLL\\GDIPlus\\Docs_GDIPlus\\landing-script-simple.js\", \"h:\\AmibrokerDLL\\GDIPlus\\Docs_GDIPlus\\test-toggle.js\", \"h:\\AmibrokerDLL\\GDIPlus\\Docs_GDIPlus\\nul\" -Force -ErrorAction SilentlyContinue)",
+      "Bash(Write-Host \"Done\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

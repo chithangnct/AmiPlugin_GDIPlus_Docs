@@ -11,15 +11,22 @@ const functionsData = {
       descVi: "Reset tất cả cài đặt về mặc định.",
       descEn: "Reset all settings to defaults.",
       params: [],
-      returns: null,
-      defaultState: {
+      returnsVi: null,
+      returnsEn: null,
+      defaultStateVi: {
         brush: "Trắng, alpha = 255 (solid)",
         pen: "Đen, alpha = 255, độ dày = 1",
         font: "Arial, 12pt"
       },
+      defaultStateEn: {
+        brush: "White, alpha = 255 (solid)",
+        pen: "Black, alpha = 255, width = 1",
+        font: "Arial, 12pt"
+      },
       exampleVi: `<span class="function">GDIpResetDefaults</span>();  <span class="comment">// Bắt đầu với cài đặt sạch</span>`,
       exampleEn: `<span class="function">GDIpResetDefaults</span>();  <span class="comment">// Start with clean settings</span>`,
-      notes: "Khuyến nghị: Gọi hàm này ở đầu mỗi AFL file để đảm bảo không bị kế thừa cài đặt từ file khác."
+      notesVi: "Khuyến nghị: Gọi hàm này ở đầu mỗi AFL file để đảm bảo không bị kế thừa cài đặt từ file khác.",
+      notesEn: "Recommendation: Call this function at the beginning of each AFL file to ensure no settings are inherited from other files."
     },
     {
       name: "GDIpClearCache",
@@ -27,12 +34,14 @@ const functionsData = {
       descVi: "Xóa tất cả file PNG cache trong thư mục temp.",
       descEn: "Clear all PNG cache files in temp directory.",
       params: [],
-      returns: "Số lượng file đã xóa",
+      returnsVi: "Số lượng file đã xóa",
+      returnsEn: "Number of files deleted",
       exampleVi: `filesDeleted = <span class="function">GDIpClearCache</span>();
 <span class="function">printf</span>(<span class="string">"Đã xóa %d files cache"</span>, filesDeleted);`,
       exampleEn: `filesDeleted = <span class="function">GDIpClearCache</span>();
 <span class="function">printf</span>(<span class="string">"Deleted %d cache files"</span>, filesDeleted);`,
-      notes: "Khi nào cần dùng: Sau khi cập nhật plugin, Khi ảnh hiển thị không đúng, Để giải phóng dung lượng ổ cứng"
+      notesVi: "Khi nào cần dùng: Sau khi cập nhật plugin, Khi ảnh hiển thị không đúng, Để giải phóng dung lượng ổ cứng",
+      notesEn: "When to use: After plugin update, When images display incorrectly, To free up disk space"
     }
   ],
 
@@ -43,10 +52,11 @@ const functionsData = {
       descVi: "Chọn màu tô đầy (brush) dạng solid.",
       descEn: "Select solid brush color.",
       params: [
-        { name: "color", desc: "Mã màu - có thể dùng ColorRGB(r, g, b) hoặc hằng số màu AmiBroker" },
-        { name: "alpha", desc: "Độ trong suốt (0-255), 0 = trong suốt hoàn toàn, 255 = đặc" }
+        { name: "color", descVi: "Mã màu - có thể dùng ColorRGB(r, g, b) hoặc hằng số màu AmiBroker", descEn: "Color code - use ColorRGB(r, g, b) or AmiBroker color constants" },
+        { name: "alpha", descVi: "Độ trong suốt (0-255), 0 = trong suốt hoàn toàn, 255 = đặc", descEn: "Transparency (0-255), 0 = fully transparent, 255 = solid" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Dùng ColorRGB</span>
 <span class="function">GDIpSelectBrushColor</span>(<span class="function">ColorRGB</span>(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">200</span>);  <span class="comment">// Đỏ, alpha 200</span>
 
@@ -68,11 +78,12 @@ const functionsData = {
       descVi: "Chọn màu và độ dày viền (pen).",
       descEn: "Select pen color and width.",
       params: [
-        { name: "color", desc: "Mã màu" },
-        { name: "alpha", desc: "Độ trong suốt (0-255)" },
-        { name: "width", desc: "Độ dày viền (pixels)" }
+        { name: "color", descVi: "Mã màu", descEn: "Color code" },
+        { name: "alpha", descVi: "Độ trong suốt (0-255)", descEn: "Transparency (0-255)" },
+        { name: "width", descVi: "Độ dày viền (pixels)", descEn: "Border width (pixels)" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Viền đen, đặc, độ dày 2 pixels</span>
 <span class="function">GDIpSelectPenColor</span>(colorBlack, <span class="number">255</span>, <span class="number">2</span>);
 
@@ -99,13 +110,14 @@ const functionsData = {
       descVi: "Chọn gradient tuyến tính (chuyển màu theo đường thẳng).",
       descEn: "Select linear gradient brush (color transition along a straight line).",
       params: [
-        { name: "color1", desc: "Màu bắt đầu / Start color" },
-        { name: "alpha1", desc: "Độ trong suốt màu bắt đầu (0-255) / Start alpha" },
-        { name: "color2", desc: "Màu kết thúc / End color" },
-        { name: "alpha2", desc: "Độ trong suốt màu kết thúc (0-255) / End alpha" },
-        { name: "angle", desc: "Góc chuyển màu (độ) / Gradient angle (degrees): 0°=ngang, 90°=dọc, 45°=chéo" }
+        { name: "color1", descVi: "Màu bắt đầu", descEn: "Start color" },
+        { name: "alpha1", descVi: "Độ trong suốt màu bắt đầu (0-255)", descEn: "Start alpha (0-255)" },
+        { name: "color2", descVi: "Màu kết thúc", descEn: "End color" },
+        { name: "alpha2", descVi: "Độ trong suốt màu kết thúc (0-255)", descEn: "End alpha (0-255)" },
+        { name: "angle", descVi: "Góc chuyển màu (độ): 0°=ngang, 90°=dọc, 45°=chéo", descEn: "Gradient angle (degrees): 0°=horizontal, 90°=vertical, 45°=diagonal" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Gradient ngang: đỏ sang vàng</span>
 <span class="function">GDIpSelectLinearGradientBrush</span>(colorRed, <span class="number">255</span>, colorYellow, <span class="number">255</span>, <span class="number">0</span>);
 <span class="function">GDIpRectangle</span>(<span class="number">50</span>, <span class="number">50</span>, <span class="number">200</span>, <span class="number">100</span>);
@@ -127,12 +139,13 @@ const functionsData = {
       descVi: "Chọn gradient hướng tâm (chuyển màu từ tâm ra ngoài).",
       descEn: "Select radial gradient brush (color transition from center outward).",
       params: [
-        { name: "color1", desc: "Màu ở tâm / Center color" },
-        { name: "alpha1", desc: "Độ trong suốt màu tâm (0-255) / Center alpha" },
-        { name: "color2", desc: "Màu ở viền ngoài / Outer edge color" },
-        { name: "alpha2", desc: "Độ trong suốt màu viền (0-255) / Outer alpha" }
+        { name: "color1", descVi: "Màu ở tâm", descEn: "Center color" },
+        { name: "alpha1", descVi: "Độ trong suốt màu tâm (0-255)", descEn: "Center alpha (0-255)" },
+        { name: "color2", descVi: "Màu ở viền ngoài", descEn: "Outer edge color" },
+        { name: "alpha2", descVi: "Độ trong suốt màu viền (0-255)", descEn: "Outer alpha (0-255)" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Gradient tâm trắng, viền xanh dương</span>
 <span class="function">GDIpSelectRadialGradientBrush</span>(colorWhite, <span class="number">255</span>, colorBlue, <span class="number">255</span>);
 <span class="function">GDIpCircle</span>(<span class="number">150</span>, <span class="number">150</span>, <span class="number">100</span>);
@@ -154,13 +167,14 @@ const functionsData = {
       descVi: "Chọn gradient slice - loại gradient đặc biệt cho hiệu ứng tự nhiên.",
       descEn: "Select slice gradient brush - special gradient for natural effects.",
       params: [
-        { name: "color1", desc: "Màu bắt đầu / Start color" },
-        { name: "alpha1", desc: "Độ trong suốt màu bắt đầu (0-255)" },
-        { name: "color2", desc: "Màu kết thúc / End color" },
-        { name: "alpha2", desc: "Độ trong suốt màu kết thúc (0-255)" },
-        { name: "angle", desc: "Góc gradient (0-360°)" }
+        { name: "color1", descVi: "Màu bắt đầu", descEn: "Start color" },
+        { name: "alpha1", descVi: "Độ trong suốt màu bắt đầu (0-255)", descEn: "Start alpha (0-255)" },
+        { name: "color2", descVi: "Màu kết thúc", descEn: "End color" },
+        { name: "alpha2", descVi: "Độ trong suốt màu kết thúc (0-255)", descEn: "End alpha (0-255)" },
+        { name: "angle", descVi: "Góc gradient (0-360°)", descEn: "Gradient angle (0-360°)" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Slice gradient cho Area Chart</span>
 <span class="function">GDIpSelectSliceGradientBrush</span>(colorBlue, <span class="number">255</span>, colorRed, <span class="number">255</span>, <span class="number">90</span>);
 <span class="function">GDIpAreaChart</span>(<span class="string">"100,180,200,120,300,200,400,80"</span>, <span class="number">250</span>, <span class="number">0.8</span>, <span class="number">1</span>);
@@ -182,12 +196,13 @@ const functionsData = {
       descVi: "Chọn gradient tuyến tính với nhiều màu và vị trí tùy chỉnh.",
       descEn: "Select linear gradient with multiple colors and custom positions.",
       params: [
-        { name: "colorString", desc: "Chuỗi màu phân cách bằng dấu phẩy (hỗ trợ ColorRGB format)" },
-        { name: "alphaString", desc: "Chuỗi alpha tương ứng" },
-        { name: "positionString", desc: "Chuỗi vị trí (0.0-1.0)" },
-        { name: "angle", desc: "Góc gradient" }
+        { name: "colorString", descVi: "Chuỗi màu phân cách bằng dấu phẩy (hỗ trợ ColorRGB format)", descEn: "Comma-separated color string (supports ColorRGB format)" },
+        { name: "alphaString", descVi: "Chuỗi alpha tương ứng", descEn: "Corresponding alpha string" },
+        { name: "positionString", descVi: "Chuỗi vị trí (0.0-1.0)", descEn: "Position string (0.0-1.0)" },
+        { name: "angle", descVi: "Góc gradient", descEn: "Gradient angle" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Gradient 3 màu: đỏ -> vàng -> xanh</span>
 <span class="function">GDIpSelectLinearGradientColor</span>(<span class="string">"ColorRGB(255,0,0),ColorRGB(255,255,0),ColorRGB(0,255,0)"</span>,
                               <span class="string">"255,255,255"</span>,
@@ -210,12 +225,13 @@ const functionsData = {
       descVi: "Chọn font chữ cho hàm vẽ text.",
       descEn: "Select font for text drawing functions.",
       params: [
-        { name: "fontName", desc: "Tên font (string), ví dụ: \"Arial\", \"Times New Roman\", \"Consolas\"" },
-        { name: "size", desc: "Kích thước font (points)" },
-        { name: "bold", desc: "True = in đậm, False = bình thường / True = bold, False = normal" },
-        { name: "italic", desc: "True = in nghiêng, False = thẳng / True = italic, False = straight" }
+        { name: "fontName", descVi: "Tên font (string), ví dụ: \"Arial\", \"Times New Roman\", \"Consolas\"", descEn: "Font name (string), e.g.: \"Arial\", \"Times New Roman\", \"Consolas\"" },
+        { name: "size", descVi: "Kích thước font (points)", descEn: "Font size (points)" },
+        { name: "bold", descVi: "True = in đậm, False = bình thường", descEn: "True = bold, False = normal" },
+        { name: "italic", descVi: "True = in nghiêng, False = thẳng", descEn: "True = italic, False = straight" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Font Arial, 24pt, đậm, không nghiêng</span>
 <span class="function">GDIpSelectFont</span>(<span class="string">"Arial"</span>, <span class="number">24</span>, True, False);
 <span class="function">GDIpText</span>(<span class="string">"Hello World"</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">24</span>);
@@ -240,11 +256,12 @@ const functionsData = {
       descVi: "Vẽ hình chữ nhật.",
       descEn: "Draw rectangle.",
       params: [
-        { name: "x, y", desc: "Tọa độ góc trên-trái / Top-left coordinates" },
-        { name: "width", desc: "Chiều rộng / Width" },
-        { name: "height", desc: "Chiều cao / Height" }
+        { name: "x, y", descVi: "Tọa độ góc trên-trái", descEn: "Top-left coordinates" },
+        { name: "width", descVi: "Chiều rộng", descEn: "Width" },
+        { name: "height", descVi: "Chiều cao", descEn: "Height" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Hình chữ nhật solid</span>
 <span class="function">GDIpSelectBrushColor</span>(colorBlue, <span class="number">200</span>);
 <span class="function">GDIpSelectPenColor</span>(colorWhite, <span class="number">255</span>, <span class="number">2</span>);
@@ -268,12 +285,13 @@ const functionsData = {
       descVi: "Vẽ hình chữ nhật bo góc tròn.",
       descEn: "Draw rounded rectangle.",
       params: [
-        { name: "x, y", desc: "Tọa độ góc trên-trái / Top-left coordinates" },
-        { name: "width", desc: "Chiều rộng / Width" },
-        { name: "height", desc: "Chiều cao / Height" },
-        { name: "cornerRadius", desc: "Bán kính bo góc (pixels) / Corner radius" }
+        { name: "x, y", descVi: "Tọa độ góc trên-trái", descEn: "Top-left coordinates" },
+        { name: "width", descVi: "Chiều rộng", descEn: "Width" },
+        { name: "height", descVi: "Chiều cao", descEn: "Height" },
+        { name: "cornerRadius", descVi: "Bán kính bo góc (pixels)", descEn: "Corner radius (pixels)" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Bo góc nhẹ (10px)</span>
 <span class="function">GDIpSelectBrushColor</span>(colorGreen, <span class="number">200</span>);
 <span class="function">GDIpSelectPenColor</span>(colorBlack, <span class="number">255</span>, <span class="number">2</span>);
@@ -297,10 +315,11 @@ const functionsData = {
       descVi: "Vẽ hình tròn.",
       descEn: "Draw circle.",
       params: [
-        { name: "centerX, centerY", desc: "Tọa độ tâm / Center coordinates" },
-        { name: "radius", desc: "Bán kính / Radius" }
+        { name: "centerX, centerY", descVi: "Tọa độ tâm", descEn: "Center coordinates" },
+        { name: "radius", descVi: "Bán kính", descEn: "Radius" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Hình tròn solid</span>
 <span class="function">GDIpSelectBrushColor</span>(colorRed, <span class="number">200</span>);
 <span class="function">GDIpSelectPenColor</span>(colorWhite, <span class="number">255</span>, <span class="number">2</span>);
@@ -324,11 +343,12 @@ const functionsData = {
       descVi: "Vẽ hình elip (hình bầu dục).",
       descEn: "Draw ellipse (oval).",
       params: [
-        { name: "x, y", desc: "Tọa độ góc trên-trái của hình chữ nhật bao / Top-left coordinates of bounding rectangle" },
-        { name: "width", desc: "Chiều rộng / Width" },
-        { name: "height", desc: "Chiều cao / Height" }
+        { name: "x, y", descVi: "Tọa độ góc trên-trái của hình chữ nhật bao", descEn: "Top-left coordinates of bounding rectangle" },
+        { name: "width", descVi: "Chiều rộng", descEn: "Width" },
+        { name: "height", descVi: "Chiều cao", descEn: "Height" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Elip nằm ngang</span>
 <span class="function">GDIpSelectBrushColor</span>(colorGold, <span class="number">200</span>);
 <span class="function">GDIpSelectPenColor</span>(colorBrown, <span class="number">255</span>, <span class="number">2</span>);
@@ -352,10 +372,11 @@ const functionsData = {
       descVi: "Vẽ đường thẳng.",
       descEn: "Draw straight line.",
       params: [
-        { name: "x1, y1", desc: "Tọa độ điểm đầu / Start point coordinates" },
-        { name: "x2, y2", desc: "Tọa độ điểm cuối / End point coordinates" }
+        { name: "x1, y1", descVi: "Tọa độ điểm đầu", descEn: "Start point coordinates" },
+        { name: "x2, y2", descVi: "Tọa độ điểm cuối", descEn: "End point coordinates" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Đường ngang</span>
 <span class="function">GDIpSelectPenColor</span>(colorRed, <span class="number">255</span>, <span class="number">3</span>);
 <span class="function">GDIpLine</span>(<span class="number">50</span>, <span class="number">100</span>, <span class="number">250</span>, <span class="number">100</span>);
@@ -380,12 +401,13 @@ const functionsData = {
       descVi: "Vẽ tam giác.",
       descEn: "Draw triangle.",
       params: [
-        { name: "cornerRadius", desc: "Bán kính bo góc (0 = góc nhọn) / Corner radius (0 = sharp)" },
-        { name: "x1, y1", desc: "Tọa độ điểm thứ 1 / Point 1 coordinates" },
-        { name: "x2, y2", desc: "Tọa độ điểm thứ 2 / Point 2 coordinates" },
-        { name: "x3, y3", desc: "Tọa độ điểm thứ 3 / Point 3 coordinates" }
+        { name: "cornerRadius", descVi: "Bán kính bo góc (0 = góc nhọn)", descEn: "Corner radius (0 = sharp)" },
+        { name: "x1, y1", descVi: "Tọa độ điểm thứ 1", descEn: "Point 1 coordinates" },
+        { name: "x2, y2", descVi: "Tọa độ điểm thứ 2", descEn: "Point 2 coordinates" },
+        { name: "x3, y3", descVi: "Tọa độ điểm thứ 3", descEn: "Point 3 coordinates" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Tam giác góc nhọn</span>
 <span class="function">GDIpSelectBrushColor</span>(colorRed, <span class="number">200</span>);
 <span class="function">GDIpSelectPenColor</span>(colorWhite, <span class="number">255</span>, <span class="number">2</span>);
@@ -409,10 +431,11 @@ const functionsData = {
       descVi: "Vẽ tứ giác (hình vuông, hình chữ nhật, hình thoi, v.v.).",
       descEn: "Draw quadrilateral (square, rectangle, diamond, etc.).",
       params: [
-        { name: "cornerRadius", desc: "Bán kính bo góc / Corner radius" },
-        { name: "x1-x4, y1-y4", desc: "Tọa độ 4 điểm / Coordinates of 4 points" }
+        { name: "cornerRadius", descVi: "Bán kính bo góc", descEn: "Corner radius" },
+        { name: "x1-x4, y1-y4", descVi: "Tọa độ 4 điểm", descEn: "Coordinates of 4 points" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Hình vuông góc nhọn</span>
 <span class="function">GDIpSelectBrushColor</span>(colorBlue, <span class="number">200</span>);
 <span class="function">GDIpPolygon4</span>(<span class="number">0</span>, <span class="number">50</span>, <span class="number">50</span>, <span class="number">150</span>, <span class="number">50</span>, <span class="number">150</span>, <span class="number">150</span>, <span class="number">50</span>, <span class="number">150</span>);
@@ -434,10 +457,11 @@ const functionsData = {
       descVi: "Vẽ ngũ giác.",
       descEn: "Draw pentagon.",
       params: [
-        { name: "cornerRadius", desc: "Bán kính bo góc / Corner radius" },
-        { name: "x1-x5, y1-y5", desc: "Tọa độ 5 điểm / Coordinates of 5 points" }
+        { name: "cornerRadius", descVi: "Bán kính bo góc", descEn: "Corner radius" },
+        { name: "x1-x5, y1-y5", descVi: "Tọa độ 5 điểm", descEn: "Coordinates of 5 points" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Ngũ giác đều bo góc với gradient chéo 45°</span>
 <span class="function">GDIpSelectLinearGradientBrush</span>(colorViolet, <span class="number">200</span>, colorTeal, <span class="number">200</span>, <span class="number">45</span>);
 <span class="function">GDIpSelectPenColor</span>(colorWhite, <span class="number">255</span>, <span class="number">2</span>);
@@ -465,10 +489,11 @@ const functionsData = {
       descVi: "Vẽ lục giác.",
       descEn: "Draw hexagon.",
       params: [
-        { name: "cornerRadius", desc: "Bán kính bo góc / Corner radius" },
-        { name: "x1-x6, y1-y6", desc: "Tọa độ 6 điểm / Coordinates of 6 points" }
+        { name: "cornerRadius", descVi: "Bán kính bo góc", descEn: "Corner radius" },
+        { name: "x1-x6, y1-y6", descVi: "Tọa độ 6 điểm", descEn: "Coordinates of 6 points" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Lục giác đều với gradient radial</span>
 <span class="function">GDIpSelectRadialGradientBrush</span>(colorOrange, <span class="number">255</span>, colorDarkGreen, <span class="number">255</span>);
 <span class="function">GDIpSelectPenColor</span>(colorYellow, <span class="number">255</span>, <span class="number">2</span>);
@@ -501,11 +526,12 @@ const functionsData = {
       descVi: "Vẽ text với hiệu ứng gradient.",
       descEn: "Draw text with gradient effects.",
       params: [
-        { name: "text", desc: "Chuỗi text cần vẽ / Text string to draw" },
-        { name: "x, y", desc: "Tọa độ góc trên-trái / Top-left coordinates" },
-        { name: "size", desc: "Kích thước font (override font size đã chọn) / Font size (overrides selected font size)" }
+        { name: "text", descVi: "Chuỗi text cần vẽ", descEn: "Text string to draw" },
+        { name: "x, y", descVi: "Tọa độ góc trên-trái", descEn: "Top-left coordinates" },
+        { name: "size", descVi: "Kích thước font (override font size đã chọn)", descEn: "Font size (overrides selected font size)" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Text solid</span>
 <span class="function">GDIpSelectBrushColor</span>(colorWhite, <span class="number">255</span>);
 <span class="function">GDIpSelectFont</span>(<span class="string">"Arial"</span>, <span class="number">32</span>, True, False);
@@ -529,11 +555,12 @@ const functionsData = {
       descVi: "Vẽ text trong vùng chữ nhật với format alignment.",
       descEn: "Draw text in rectangular area with alignment format.",
       params: [
-        { name: "text", desc: "Chuỗi text / Text string" },
-        { name: "left, top, right, bottom", desc: "Tọa độ vùng chữ nhật / Rectangle area coordinates" },
-        { name: "format", desc: "Format alignment: 37=Center, 33=Left, 34=Right" }
+        { name: "text", descVi: "Chuỗi text", descEn: "Text string" },
+        { name: "left, top, right, bottom", descVi: "Tọa độ vùng chữ nhật", descEn: "Rectangle area coordinates" },
+        { name: "format", descVi: "Format căn chỉnh: 37=Giữa, 33=Trái, 34=Phải", descEn: "Alignment format: 37=Center, 33=Left, 34=Right" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Text căn giữa</span>
 <span class="function">GDIpSelectBrushColor</span>(colorWhite, <span class="number">255</span>);
 <span class="function">GDIpDrawText</span>(<span class="string">"CENTER"</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">300</span>, <span class="number">150</span>, <span class="number">37</span>);
@@ -556,11 +583,12 @@ const functionsData = {
       descVi: "Vẽ đường cong mượt mà từ chuỗi tọa độ.",
       descEn: "Draw smooth curve from coordinate string.",
       params: [
-        { name: "xystr", desc: "Chuỗi tọa độ \"x1,y1,x2,y2,x3,y3,...\" / Coordinate string" },
-        { name: "smoothRatio", desc: "Độ mượt (0.0-1.0), 0=thẳng, 1=mượt nhất / Smoothness (0=straight, 1=smoothest)" },
-        { name: "dotMode", desc: "Hiển thị điểm (0=không, 1=cùng màu pen, >1=màu custom) / Show dots" }
+        { name: "xystr", descVi: "Chuỗi tọa độ \"x1,y1,x2,y2,x3,y3,...\"", descEn: "Coordinate string \"x1,y1,x2,y2,x3,y3,...\"" },
+        { name: "smoothRatio", descVi: "Độ mượt (0.0-1.0), 0=thẳng, 1=mượt nhất", descEn: "Smoothness (0.0-1.0), 0=straight, 1=smoothest" },
+        { name: "dotMode", descVi: "Hiển thị điểm (0=không, 1=cùng màu pen, >1=màu custom)", descEn: "Show dots (0=no, 1=pen color, >1=custom color)" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Đường cong mượt</span>
 <span class="function">GDIpSelectPenColor</span>(colorBlue, <span class="number">255</span>, <span class="number">3</span>);
 <span class="function">GDIpSmoothLine</span>(<span class="string">"100,200,200,150,300,180,400,120,500,160"</span>, <span class="number">0.8</span>, <span class="number">1</span>);`,
@@ -574,12 +602,13 @@ const functionsData = {
       descVi: "Vẽ đường cong mượt mà từ 2 chuỗi tọa độ X và Y riêng biệt.",
       descEn: "Draw smooth curve from separate X and Y coordinate strings.",
       params: [
-        { name: "xstr", desc: "Chuỗi tọa độ X \"x1,x2,x3,...\" / X coordinates string" },
-        { name: "ystr", desc: "Chuỗi tọa độ Y \"y1,y2,y3,...\" / Y coordinates string" },
-        { name: "smoothRatio", desc: "Độ mượt (0.0-1.0) / Smoothness" },
-        { name: "dotMode", desc: "Hiển thị điểm (0=không, 1=cùng màu pen, >1=màu custom) / Show dots" }
+        { name: "xstr", descVi: "Chuỗi tọa độ X \"x1,x2,x3,...\"", descEn: "X coordinates string \"x1,x2,x3,...\"" },
+        { name: "ystr", descVi: "Chuỗi tọa độ Y \"y1,y2,y3,...\"", descEn: "Y coordinates string \"y1,y2,y3,...\"" },
+        { name: "smoothRatio", descVi: "Độ mượt (0.0-1.0)", descEn: "Smoothness (0.0-1.0)" },
+        { name: "dotMode", descVi: "Hiển thị điểm (0=không, 1=cùng màu pen, >1=màu custom)", descEn: "Show dots (0=no, 1=pen color, >1=custom color)" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       isNew: true,
       exampleVi: `<span class="comment">// Đường cong mượt với X và Y riêng biệt</span>
 <span class="function">GDIpSelectPenColor</span>(colorRed, <span class="number">255</span>, <span class="number">4</span>);
@@ -609,12 +638,13 @@ y_coords = <span class="string">"200,150,180,120,160"</span>;
       descVi: "Vẽ area chart với gradient tự nhiên.",
       descEn: "Draw area chart with natural gradient.",
       params: [
-        { name: "xystr", desc: "Chuỗi tọa độ điểm \"x1,y1,x2,y2,...\" / Point coordinates string" },
-        { name: "baselineY", desc: "Tọa độ Y của baseline" },
-        { name: "smoothRatio", desc: "Độ mượt đường cong (0.0-1.0) / Curve smoothness" },
-        { name: "dotMode", desc: "Hiển thị điểm (0=không, 1=có) / Show dots (0=no, 1=yes)" }
+        { name: "xystr", descVi: "Chuỗi tọa độ điểm \"x1,y1,x2,y2,...\"", descEn: "Point coordinates string \"x1,y1,x2,y2,...\"" },
+        { name: "baselineY", descVi: "Tọa độ Y của baseline", descEn: "Baseline Y coordinate" },
+        { name: "smoothRatio", descVi: "Độ mượt đường cong (0.0-1.0)", descEn: "Curve smoothness (0.0-1.0)" },
+        { name: "dotMode", descVi: "Hiển thị điểm (0=không, 1=có)", descEn: "Show dots (0=no, 1=yes)" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Area chart với slice gradient</span>
 <span class="function">GDIpSelectSliceGradientBrush</span>(colorBlue, <span class="number">255</span>, colorRed, <span class="number">255</span>, <span class="number">90</span>);
 <span class="function">GDIpSelectPenColor</span>(colorWhite, <span class="number">200</span>, <span class="number">2</span>);
@@ -630,15 +660,16 @@ y_coords = <span class="string">"200,150,180,120,160"</span>;
       descVi: "Vẽ biểu đồ tròn (pie chart).",
       descEn: "Draw pie chart.",
       params: [
-        { name: "strValue", desc: "Chuỗi giá trị phân cách bằng dấu phẩy / Comma-separated values" },
-        { name: "strColor", desc: "Chuỗi màu tương ứng / Corresponding colors" },
-        { name: "strAlpha", desc: "Chuỗi alpha tương ứng / Corresponding alphas" },
-        { name: "x, y", desc: "Tọa độ tâm / Center coordinates" },
-        { name: "radius", desc: "Bán kính / Radius" },
-        { name: "roundCorner", desc: "Bo góc (pixels) / Corner rounding" },
-        { name: "offset", desc: "Khoảng cách giữa các phần / Gap between slices" }
+        { name: "strValue", descVi: "Chuỗi giá trị phân cách bằng dấu phẩy", descEn: "Comma-separated values" },
+        { name: "strColor", descVi: "Chuỗi màu tương ứng", descEn: "Corresponding colors" },
+        { name: "strAlpha", descVi: "Chuỗi alpha tương ứng", descEn: "Corresponding alphas" },
+        { name: "x, y", descVi: "Tọa độ tâm", descEn: "Center coordinates" },
+        { name: "radius", descVi: "Bán kính", descEn: "Radius" },
+        { name: "roundCorner", descVi: "Bo góc (pixels)", descEn: "Corner rounding (pixels)" },
+        { name: "offset", descVi: "Khoảng cách giữa các phần", descEn: "Gap between slices" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="function">GDIpPieChart</span>(<span class="string">"30,25,20,25"</span>,
              <span class="string">"colorRed,colorBlue,colorGreen,colorYellow"</span>,
              <span class="string">"200,200,200,200"</span>,
@@ -654,9 +685,10 @@ y_coords = <span class="string">"200,150,180,120,160"</span>;
       descVi: "Vẽ biểu đồ donut (pie chart có lỗ giữa).",
       descEn: "Draw donut chart (pie chart with center hole).",
       params: [
-        { name: "width", desc: "Độ dày vành / Ring width" }
+        { name: "width", descVi: "Độ dày vành", descEn: "Ring width" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Tương tự PieChart + thêm tham số width</span>
 <span class="function">GDIpDonutChart</span>(<span class="string">"30,25,20,25"</span>,
                 <span class="string">"colorRed,colorBlue,colorGreen,colorYellow"</span>,
@@ -674,12 +706,13 @@ y_coords = <span class="string">"200,150,180,120,160"</span>;
       descVi: "Vẽ đồng hồ đo (gauge) với kim chỉ.",
       descEn: "Draw gauge chart with needle.",
       params: [
-        { name: "pct", desc: "Phần trăm (0-100) / Percentage" },
-        { name: "color1, color2", desc: "Màu gradient của vùng active / Active area gradient colors" },
-        { name: "colorDisable", desc: "Màu vùng disable / Disabled area color" },
-        { name: "colorNeedle", desc: "Màu kim chỉ / Needle color" }
+        { name: "pct", descVi: "Phần trăm (0-100)", descEn: "Percentage (0-100)" },
+        { name: "color1, color2", descVi: "Màu gradient của vùng active", descEn: "Active area gradient colors" },
+        { name: "colorDisable", descVi: "Màu vùng disable", descEn: "Disabled area color" },
+        { name: "colorNeedle", descVi: "Màu kim chỉ", descEn: "Needle color" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Gauge RSI</span>
 rsiValue = <span class="function">RSI</span>(<span class="number">14</span>);
 <span class="function">GDIpGaugeChart</span>(rsiValue, <span class="number">200</span>, <span class="number">200</span>, <span class="number">80</span>, <span class="number">20</span>,
@@ -697,10 +730,11 @@ rsiValue = <span class="function">RSI</span>(<span class="number">14</span>);
       descVi: "Vẽ biểu đồ tròn tiến trình với gradient góc.",
       descEn: "Draw circular progress chart with angle gradient.",
       params: [
-        { name: "pct", desc: "Phần trăm (0-100) / Percentage" },
-        { name: "posStart", desc: "Góc bắt đầu / Start angle" }
+        { name: "pct", descVi: "Phần trăm (0-100)", descEn: "Percentage (0-100)" },
+        { name: "posStart", descVi: "Góc bắt đầu", descEn: "Start angle" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Progress circle 75%</span>
 <span class="function">GDIpProcessCircleChart</span>(<span class="number">75</span>, <span class="number">200</span>, <span class="number">200</span>, <span class="number">60</span>, <span class="number">15</span>, <span class="number">0</span>,
                        colorBlue, colorRed, colorGray,
@@ -716,12 +750,13 @@ rsiValue = <span class="function">RSI</span>(<span class="number">14</span>);
       descVi: "Vẽ biểu đồ radar (spider chart).",
       descEn: "Draw radar chart (spider chart).",
       params: [
-        { name: "strField", desc: "Tên các trường (phân cách bằng dấu phẩy) / Field names (comma-separated)" },
-        { name: "strValue", desc: "Giá trị tương ứng / Corresponding values" },
-        { name: "maxValue", desc: "Giá trị tối đa / Maximum value" },
-        { name: "mode", desc: "Chế độ hiển thị (0=chỉ lưới, 1=đầy đủ) / Display mode" }
+        { name: "strField", descVi: "Tên các trường (phân cách bằng dấu phẩy)", descEn: "Field names (comma-separated)" },
+        { name: "strValue", descVi: "Giá trị tương ứng", descEn: "Corresponding values" },
+        { name: "maxValue", descVi: "Giá trị tối đa", descEn: "Maximum value" },
+        { name: "mode", descVi: "Chế độ hiển thị (0=chỉ lưới, 1=đầy đủ)", descEn: "Display mode (0=grid only, 1=full)" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="function">GDIpSelectSliceGradientBrush</span>(colorBlue, <span class="number">180</span>, colorRed, <span class="number">180</span>, <span class="number">90</span>);
 <span class="function">GDIpRadarChart</span>(<span class="string">"Speed,Power,Skill,Defense,Health"</span>,
                <span class="string">"85,92,78,88,95"</span>,
@@ -737,15 +772,16 @@ rsiValue = <span class="function">RSI</span>(<span class="number">14</span>);
       descVi: "Vẽ cung tròn với gradient góc.",
       descEn: "Draw arc with angle gradient.",
       params: [
-        { name: "x, y", desc: "Tọa độ tâm / Center coordinates" },
-        { name: "radius", desc: "Bán kính / Radius" },
-        { name: "width", desc: "Độ dày cung / Arc width" },
-        { name: "posStart, posEnd", desc: "Góc bắt đầu và kết thúc (0-360 độ) / Start and end angles" },
-        { name: "color1, color2", desc: "Màu gradient / Gradient colors" },
-        { name: "a1, a2", desc: "Alpha transparency (0-255)" },
-        { name: "roundCorner", desc: "Bo góc (-1=auto, 0=vuông, >0=bo tròn) / Rounding" }
+        { name: "x, y", descVi: "Tọa độ tâm", descEn: "Center coordinates" },
+        { name: "radius", descVi: "Bán kính", descEn: "Radius" },
+        { name: "width", descVi: "Độ dày cung", descEn: "Arc width" },
+        { name: "posStart, posEnd", descVi: "Góc bắt đầu và kết thúc (0-360 độ)", descEn: "Start and end angles (0-360 degrees)" },
+        { name: "color1, color2", descVi: "Màu gradient", descEn: "Gradient colors" },
+        { name: "a1, a2", descVi: "Độ trong suốt alpha (0-255)", descEn: "Alpha transparency (0-255)" },
+        { name: "roundCorner", descVi: "Bo góc (-1=tự động, 0=vuông, >0=bo tròn)", descEn: "Corner rounding (-1=auto, 0=square, >0=rounded)" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Cung tròn đơn giản (90 độ)</span>
 <span class="function">GDIpArc</span>(<span class="number">200</span>, <span class="number">200</span>, <span class="number">80</span>, <span class="number">20</span>, <span class="number">0</span>, <span class="number">90</span>, colorBlue, colorRed, <span class="number">255</span>, <span class="number">255</span>, <span class="number">10</span>);
 
@@ -767,13 +803,14 @@ progress = <span class="number">75</span>; <span class="comment">// 75%</span>
       descVi: "Vẽ dòng chảy Sankey giữa hai edge.",
       descEn: "Draw Sankey flow between two edges.",
       params: [
-        { name: "x1, y1, x2, y2", desc: "Edge bắt đầu (từ điểm 1 đến điểm 2) / Start edge" },
-        { name: "x3, y3, x4, y4", desc: "Edge kết thúc (từ điểm 3 đến điểm 4) / End edge" },
-        { name: "colorFlow", desc: "Màu dòng chảy / Flow color" },
-        { name: "alpha", desc: "Độ trong suốt (0-255) / Transparency" },
-        { name: "adjCurve", desc: "Điều chỉnh độ cong (-1.0 đến 1.0) / Curve adjustment" }
+        { name: "x1, y1, x2, y2", descVi: "Edge bắt đầu (từ điểm 1 đến điểm 2)", descEn: "Start edge (from point 1 to point 2)" },
+        { name: "x3, y3, x4, y4", descVi: "Edge kết thúc (từ điểm 3 đến điểm 4)", descEn: "End edge (from point 3 to point 4)" },
+        { name: "colorFlow", descVi: "Màu dòng chảy", descEn: "Flow color" },
+        { name: "alpha", descVi: "Độ trong suốt (0-255)", descEn: "Transparency (0-255)" },
+        { name: "adjCurve", descVi: "Điều chỉnh độ cong (-1.0 đến 1.0)", descEn: "Curve adjustment (-1.0 to 1.0)" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Sankey flow cơ bản</span>
 <span class="function">GDIpPlotFlow</span>(<span class="number">50</span>, <span class="number">100</span>, <span class="number">50</span>, <span class="number">150</span>,   <span class="comment">// Edge trái (dọc)</span>
              <span class="number">250</span>, <span class="number">120</span>, <span class="number">250</span>, <span class="number">180</span>, <span class="comment">// Edge phải (dọc)</span>
@@ -802,11 +839,12 @@ progress = <span class="number">75</span>; <span class="comment">// 75%</span>
       descVi: "Vẽ file SVG tại vị trí và kích thước chỉ định.",
       descEn: "Draw SVG file at specified position and size.",
       params: [
-        { name: "svgPath", desc: "Đường dẫn đến file SVG / Path to SVG file" },
-        { name: "x, y", desc: "Tọa độ góc trên-trái / Top-left coordinates" },
-        { name: "width, height", desc: "Kích thước hiển thị / Display size" }
+        { name: "svgPath", descVi: "Đường dẫn đến file SVG", descEn: "Path to SVG file" },
+        { name: "x, y", descVi: "Tọa độ góc trên-trái", descEn: "Top-left coordinates" },
+        { name: "width, height", descVi: "Kích thước hiển thị", descEn: "Display size" }
       ],
-      returns: null,
+      returnsVi: null,
+      returnsEn: null,
       exampleVi: `<span class="comment">// Vẽ logo/icon SVG</span>
 <span class="function">GDIpDrawSVG</span>(<span class="string">"C:\\\\Icons\\\\logo.svg"</span>, <span class="number">50</span>, <span class="number">50</span>, <span class="number">100</span>, <span class="number">100</span>);
 

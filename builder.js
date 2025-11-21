@@ -69,9 +69,12 @@
           <ul class="params-list">`;
 
       func.params.forEach(param => {
+        const paramDesc = param.descVi && param.descEn
+          ? (isVi ? param.descVi : param.descEn)
+          : param.desc; // Fallback to old 'desc' field
         html += `
             <li>
-              <code>${param.name}</code>: ${param.desc}
+              <code>${param.name}</code>: <span class="param-desc-vi" style="display: ${isVi ? '' : 'none'}">${param.descVi || param.desc || ''}</span><span class="param-desc-en" style="display: ${isVi ? 'none' : ''}">${param.descEn || param.desc || ''}</span>
             </li>`;
       });
 
@@ -81,23 +84,30 @@
     }
 
     // Returns section
-    if (func.returns) {
+    const returns = func.returnsVi || func.returnsEn || func.returns;
+    if (returns) {
+      const returnsText = func.returnsVi && func.returnsEn
+        ? `<span class="returns-vi" style="display: ${isVi ? '' : 'none'}">${func.returnsVi}</span><span class="returns-en" style="display: ${isVi ? 'none' : ''}">${func.returnsEn}</span>`
+        : (func.returns || '');
       html += `
         <div class="returns-section">
           <h4 data-i18n="functions.returns">${t('functions.returns')}</h4>
-          <p>${func.returns}</p>
+          <p>${returnsText}</p>
         </div>`;
     }
 
     // Default state section (for GDIpResetDefaults)
-    if (func.defaultState) {
+    const defaultState = func.defaultStateVi || func.defaultStateEn || func.defaultState;
+    if (defaultState) {
+      const stateVi = func.defaultStateVi || func.defaultState;
+      const stateEn = func.defaultStateEn || func.defaultState;
       html += `
         <div class="default-state-section">
           <h4 data-i18n="functions.defaults">${t('functions.defaults')}</h4>
           <ul>
-            <li><strong>Brush:</strong> ${func.defaultState.brush}</li>
-            <li><strong>Pen:</strong> ${func.defaultState.pen}</li>
-            <li><strong>Font:</strong> ${func.defaultState.font}</li>
+            <li><strong>Brush:</strong> <span class="state-vi" style="display: ${isVi ? '' : 'none'}">${stateVi?.brush || ''}</span><span class="state-en" style="display: ${isVi ? 'none' : ''}">${stateEn?.brush || ''}</span></li>
+            <li><strong>Pen:</strong> <span class="state-vi" style="display: ${isVi ? '' : 'none'}">${stateVi?.pen || ''}</span><span class="state-en" style="display: ${isVi ? 'none' : ''}">${stateEn?.pen || ''}</span></li>
+            <li><strong>Font:</strong> <span class="state-vi" style="display: ${isVi ? '' : 'none'}">${stateVi?.font || ''}</span><span class="state-en" style="display: ${isVi ? 'none' : ''}">${stateEn?.font || ''}</span></li>
           </ul>
         </div>`;
     }
@@ -113,17 +123,18 @@
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
               </svg>
             </button>
-            <pre><code class="language-afl example-vi" data-func="${func.name}">${func.exampleVi}</code></pre>
-            <pre style="display: none;"><code class="language-afl example-en" data-func="${func.name}">${func.exampleEn}</code></pre>
+            <pre><code class="language-clike example-vi" data-func="${func.name}">${func.exampleVi}</code></pre>
+            <pre style="display: none;"><code class="language-clike example-en" data-func="${func.name}">${func.exampleEn}</code></pre>
           </div>
         </div>`;
 
     // Notes section
-    if (func.notes) {
+    if (func.notesVi || func.notesEn) {
       const pinIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px;"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>';
+      const noteText = isVi ? func.notesVi : func.notesEn;
       html += `
         <div class="notes-section">
-          <p class="note"><strong>${pinIcon}</strong>${func.notes}</p>
+          <p class="note"><strong>${pinIcon}</strong><span class="note-text-vi" style="display: ${isVi ? '' : 'none'}">${func.notesVi || ''}</span><span class="note-text-en" style="display: ${isVi ? 'none' : ''}">${func.notesEn || ''}</span></p>
         </div>`;
     }
 
@@ -333,8 +344,8 @@
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                   </svg>
                 </button>
-                <pre><code class="language-afl example-vi">${exampleVi}</code></pre>
-                <pre style="display: none;"><code class="language-afl example-en">${exampleEn}</code></pre>
+                <pre><code class="language-clike example-vi">${exampleVi}</code></pre>
+                <pre style="display: none;"><code class="language-clike example-en">${exampleEn}</code></pre>
               </div>
             </div>
           </div>
@@ -360,10 +371,74 @@
   }
 
   function updateLanguageContent() {
+    console.log('GDIPlus Builder: Updating language content...');
+
+    const currentLang = window.i18n ? window.i18n.getCurrentLang() : 'vi';
+    console.log('GDIPlus Builder: Current language is', currentLang);
+
     // Rebuild all content to update Installation, Quick Start, and all functions
     const contentContainer = document.getElementById('functions-content');
     if (contentContainer) {
       contentContainer.innerHTML = buildAllContent();
+
+      // Toggle visibility of example code blocks based on language
+      const viExamples = document.querySelectorAll('.example-vi');
+      const enExamples = document.querySelectorAll('.example-en');
+
+      viExamples.forEach(example => {
+        const pre = example.closest('pre');
+        if (pre) {
+          pre.style.display = currentLang === 'vi' ? '' : 'none';
+        }
+      });
+
+      enExamples.forEach(example => {
+        const pre = example.closest('pre');
+        if (pre) {
+          pre.style.display = currentLang === 'en' ? '' : 'none';
+        }
+      });
+
+      console.log('GDIPlus Builder: Toggled', viExamples.length, 'VI examples and', enExamples.length, 'EN examples');
+
+      // Toggle visibility of notes based on language
+      const viNotes = document.querySelectorAll('.note-text-vi');
+      const enNotes = document.querySelectorAll('.note-text-en');
+
+      viNotes.forEach(note => {
+        note.style.display = currentLang === 'vi' ? '' : 'none';
+      });
+
+      enNotes.forEach(note => {
+        note.style.display = currentLang === 'en' ? '' : 'none';
+      });
+
+      console.log('GDIPlus Builder: Toggled', viNotes.length, 'VI notes and', enNotes.length, 'EN notes');
+
+      // Toggle visibility of params, returns, and state based on language
+      const viParams = document.querySelectorAll('.param-desc-vi');
+      const enParams = document.querySelectorAll('.param-desc-en');
+      const viReturns = document.querySelectorAll('.returns-vi');
+      const enReturns = document.querySelectorAll('.returns-en');
+      const viState = document.querySelectorAll('.state-vi');
+      const enState = document.querySelectorAll('.state-en');
+
+      viParams.forEach(el => el.style.display = currentLang === 'vi' ? '' : 'none');
+      enParams.forEach(el => el.style.display = currentLang === 'en' ? '' : 'none');
+      viReturns.forEach(el => el.style.display = currentLang === 'vi' ? '' : 'none');
+      enReturns.forEach(el => el.style.display = currentLang === 'en' ? '' : 'none');
+      viState.forEach(el => el.style.display = currentLang === 'vi' ? '' : 'none');
+      enState.forEach(el => el.style.display = currentLang === 'en' ? '' : 'none');
+
+      console.log('GDIPlus Builder: Toggled params, returns, and state descriptions');
+
+      // Re-apply Prism syntax highlighting after content update
+      if (window.Prism) {
+        const codeBlocks = document.querySelectorAll('pre code');
+        console.log('GDIPlus Builder: Re-highlighting', codeBlocks.length, 'code blocks');
+        Prism.highlightAll();
+        console.log('GDIPlus Builder: Syntax highlighting re-applied');
+      }
     }
 
     // Update sidebar nav
@@ -421,6 +496,64 @@
     if (contentContainer) {
       contentContainer.innerHTML = buildAllContent();
       console.log('GDIPlus Builder: Content generated successfully');
+
+      // Set initial language visibility for code examples
+      const currentLang = window.i18n ? window.i18n.getCurrentLang() : 'vi';
+      const viExamples = document.querySelectorAll('.example-vi');
+      const enExamples = document.querySelectorAll('.example-en');
+
+      viExamples.forEach(example => {
+        const pre = example.closest('pre');
+        if (pre) {
+          pre.style.display = currentLang === 'vi' ? '' : 'none';
+        }
+      });
+
+      enExamples.forEach(example => {
+        const pre = example.closest('pre');
+        if (pre) {
+          pre.style.display = currentLang === 'en' ? '' : 'none';
+        }
+      });
+
+      // Set initial language visibility for notes
+      const viNotes = document.querySelectorAll('.note-text-vi');
+      const enNotes = document.querySelectorAll('.note-text-en');
+
+      viNotes.forEach(note => {
+        note.style.display = currentLang === 'vi' ? '' : 'none';
+      });
+
+      enNotes.forEach(note => {
+        note.style.display = currentLang === 'en' ? '' : 'none';
+      });
+
+      // Set initial language visibility for params, returns, and state
+      const viParams = document.querySelectorAll('.param-desc-vi');
+      const enParams = document.querySelectorAll('.param-desc-en');
+      const viReturns = document.querySelectorAll('.returns-vi');
+      const enReturns = document.querySelectorAll('.returns-en');
+      const viState = document.querySelectorAll('.state-vi');
+      const enState = document.querySelectorAll('.state-en');
+
+      viParams.forEach(el => el.style.display = currentLang === 'vi' ? '' : 'none');
+      enParams.forEach(el => el.style.display = currentLang === 'en' ? '' : 'none');
+      viReturns.forEach(el => el.style.display = currentLang === 'vi' ? '' : 'none');
+      enReturns.forEach(el => el.style.display = currentLang === 'en' ? '' : 'none');
+      viState.forEach(el => el.style.display = currentLang === 'vi' ? '' : 'none');
+      enState.forEach(el => el.style.display = currentLang === 'en' ? '' : 'none');
+
+      console.log('GDIPlus Builder: Set initial language to', currentLang);
+
+      // Apply Prism syntax highlighting to all code blocks
+      if (window.Prism) {
+        const codeBlocks = document.querySelectorAll('pre code');
+        console.log('GDIPlus Builder: Found', codeBlocks.length, 'code blocks');
+        Prism.highlightAll();
+        console.log('GDIPlus Builder: Syntax highlighting applied');
+      } else {
+        console.error('GDIPlus Builder: Prism is not loaded!');
+      }
     }
 
     // Build sidebar navigation

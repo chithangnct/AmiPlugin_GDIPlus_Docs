@@ -510,7 +510,8 @@ function updateTranslations() {
     });
 
     // Update code comments
-    updateCodeComments();
+    // NOTE: Commented out because builder.js handles code examples with pre-built VI/EN versions
+    // updateCodeComments();
 
     // Update HTML lang attribute
     document.documentElement.setAttribute('lang', currentLang);
@@ -584,10 +585,23 @@ function switchLanguage(lang) {
     localStorage.setItem('language', lang);
     updateTranslations();
 
-    // Update language toggle button
+    // Update language toggle button (old text version)
     const langText = document.querySelector('.lang-text');
     if (langText) {
         langText.textContent = lang === 'vi' ? 'EN' : 'VI';
+    }
+
+    // Update language toggle flags
+    const viFlag = document.querySelector('.vi-flag');
+    const usFlag = document.querySelector('.us-flag');
+    if (viFlag && usFlag) {
+        if (lang === 'vi') {
+            viFlag.style.display = 'inline-block';
+            usFlag.style.display = 'none';
+        } else {
+            viFlag.style.display = 'none';
+            usFlag.style.display = 'inline-block';
+        }
     }
 
     // Dispatch custom event to notify other scripts
@@ -602,6 +616,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const langText = document.querySelector('.lang-text');
     if (langText) {
         langText.textContent = currentLang === 'vi' ? 'EN' : 'VI';
+    }
+
+    // Set initial flag visibility
+    const viFlag = document.querySelector('.vi-flag');
+    const usFlag = document.querySelector('.us-flag');
+    if (viFlag && usFlag) {
+        if (currentLang === 'vi') {
+            viFlag.style.display = 'inline-block';
+            usFlag.style.display = 'none';
+        } else {
+            viFlag.style.display = 'none';
+            usFlag.style.display = 'inline-block';
+        }
     }
 
     // Add language toggle event listener
